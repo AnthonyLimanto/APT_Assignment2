@@ -10,6 +10,7 @@ class Player
 {
 public:
     Player(std::string name);
+    Player(Player &other);
     ~Player();
     /* Helper Methods */
     void addPoints(int points);

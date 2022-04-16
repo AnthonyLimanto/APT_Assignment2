@@ -11,6 +11,12 @@ Player::Player(std::string name)
     this->name = name;
     this->score = 0;
 }
+Player::Player(Player &other)
+{
+    hand = new LinkedList(other.getPlayerHand());
+    this->name = other.getPlayerName();
+    this->score = other.getPlayerScore();
+}
 Player::~Player()
 {
     delete hand;
