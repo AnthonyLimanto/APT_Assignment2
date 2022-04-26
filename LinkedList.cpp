@@ -107,4 +107,7 @@ void LinkedList::remove_at_index(int index) {
       length -= 1;
    }
 }
+
+int LinkedList::getSize(){
+   return length;
 }

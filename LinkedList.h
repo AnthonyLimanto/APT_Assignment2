@@ -24,6 +24,8 @@ public:
    void remove_at_index(int i);
    Tile* get_tile_at_index(int i);
 
+   int getSize();
+
    // get first letter in hand, thats
 
 private:

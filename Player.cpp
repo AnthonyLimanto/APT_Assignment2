@@ -13,9 +13,9 @@ Player::Player(std::string name)
 }
 Player::Player(Player &other)
 {
-    hand = new LinkedList(other.getPlayerHand());
-    this->name = other.getPlayerName();
-    this->score = other.getPlayerScore();
+    hand = new LinkedList(*other.hand);
+    this->name = other.name;
+    this->score = other.score;
 }
 Player::~Player()
 {
@@ -30,7 +30,7 @@ void Player::addPoints(int points)
 /* Add a tile to the hand */
 void Player::drawTile(Tile *tile)
 {
-    hand->addBack(tile);
+    hand->add_front(tile);
 }
 
 /* Prints the players hand.
@@ -39,9 +39,9 @@ void Player::drawTile(Tile *tile)
 void Player::printHand()
 {
     std::cout << "Your hand is " << std::endl;
-    for (int i = 0; i < hand->size(); i++)
+    for (int i = 0; i < hand->getSize(); i++)
     {
-        std::cout << hand->get(i)->getLetter() << "-" << hand->get(i)->getNum() << ", ";
+        std::cout << hand->get_tile_at_index(i)->getLetter() << "-" << hand->get_tile_at_index(i)->getValue() << ", ";
     }
     std::cout << std::endl;
 }
@@ -66,11 +66,11 @@ int Player::getPlayerScore()
  */
 void Player::endPenalty()
 {
-    if (hand->size() > 0)
+    if (hand->getSize() > 0)
     {
-        for (int i = 0; i < hand->size(); i++)
+        for (int i = 0; i < hand->getSize(); i++)
         {
-            score -= hand->get(i)->getNum();
+            score -= hand->get_tile_at_index(i)->getValue();
         }
     }
 }
