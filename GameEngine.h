@@ -2,6 +2,8 @@
 #ifndef ASSIGN2_GAMEENGINE_H
 #define ASSIGN2_GAMEENGINE_H
 
+#include <fstream>
+#include <random>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -14,6 +16,7 @@
 #define BOARD_DIM_ROW 15
 #define BOARD_DIM_COL 15
 #define MAX_HAND_SIZE 7
+#define TILEBAG_SIZE 98
 
 class GameEngine
 {
