@@ -29,7 +29,7 @@ int main(void) {
    // LinkedList* list = new LinkedList();
    // delete list;
 
-   std::cout << "TODO: Implement Qwirkle!" << std::endl;
+
    int  choice;
    cout << "Welcome to Scrabble! \n" ;
    cout << "-------------------- \n" ;
