@@ -38,10 +38,14 @@ void Player::drawTile(Tile *tile)
  */
 void Player::printHand()
 {
+
     std::cout << "Your hand is " << std::endl;
-    for (int i = 0; i < hand->getSize(); i++)
+    if (hand->getSize() > 0)
     {
-        std::cout << hand->get_tile_at_index(i)->getLetter() << "-" << hand->get_tile_at_index(i)->getValue() << ", ";
+        for (int i = 0; i < hand->getSize(); i++)
+        {
+            std::cout << hand->get_tile_at_index(i)->getLetter() << "-" << hand->get_tile_at_index(i)->getValue() << ", ";
+        }
     }
     std::cout << std::endl;
 }

@@ -11,7 +11,7 @@ public:
    LinkedList();
    ~LinkedList();
 
-   void add_front(Tile*);
+   void add_front(Tile* tile);
    void add_back(Tile* tile);
 
 
