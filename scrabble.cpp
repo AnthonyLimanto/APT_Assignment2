@@ -21,7 +21,6 @@ const int N = 14; //col
 vector <vector<char> > grid;
 
 
-#define EXIT_SUCCESS    0
 
 void print_grid(vector <vector<char> > grid);
 
