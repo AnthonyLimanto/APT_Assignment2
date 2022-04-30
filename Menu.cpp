@@ -79,7 +79,7 @@ Menu::Menu() {
    //return EXIT_SUCCESS;
 }
 
-
+//grid
 void Menu::print_grid(vector <vector<char> > grid)
 {
    
