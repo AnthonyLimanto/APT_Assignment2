@@ -3,8 +3,6 @@
 #define EXIT_SUCCESS    0
 
 Menu::Menu() {
-   // LinkedList* list = new LinkedList();
-   // delete list;
 
 
    int  choice;
