@@ -44,6 +44,7 @@ private:
     Player *currentPlayer;
     LinkedList *tilebag;
     std::vector<Player *> players;
+    std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
 };
 
 #endif // ASSIGN2_GAMEENGINE_H
