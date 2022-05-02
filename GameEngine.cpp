@@ -14,6 +14,14 @@ GameEngine::~GameEngine()
     {
         delete players[i];
     }
+    for (int row = 0; row < BOARD_DIM_ROW; row++)
+    {
+        for (int col = 0; col < BOARD_DIM_COL; col++)
+        {
+            delete board[row][col];
+            board[row][col] = nullptr;
+        }
+    }
 }
 
 void GameEngine::addPlayer(std::string name)
@@ -75,10 +83,37 @@ void GameEngine::getWinner()
     }
 }
 
+void GameEngine::userInputs(std::string input)
+{
+    /* Check for EOF if not check if valid, Best way to check is substrings */
+    bool done = false;
+
+    if (input.length() < 0 || input.length() > 15)
+    {
+        if (input.substr(0, 5) == "place" && input.substr(9, 2) == "at" && currentPlayer->getPlayerHand()->contains(input.at(6)))
+        {
+        }
+        else if (input.substr(0, 5) == "replace" && currentPlayer->getPlayerHand()->contains(input.at(7)))
+        {
+        }
+        else if (input.substr(0, 4) == "done")
+        {
+            done = true;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Invalid Input" << std::endl;
+    }
+}
+
 void GameEngine::printBoard()
 {
     // std::cout << currentPlayer->getPlayerName() << ", it's your turn!" << std::endl;
-
     for (int i = 0; i < numPlayers; i++)
     {
         std::cout << "Score for " << players[i]->getPlayerName() << ": " << players[i]->getPlayerScore() << std::endl;
