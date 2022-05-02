@@ -64,17 +64,3 @@ int Player::get_player_score()
 {
     return score;
 }
-
-/* Method to apply end penalty if the player has cards left in thier hand.
- * Place holder method names for now.
- */
-void Player::end_penalty()
-{
-    if (hand->getSize() > 0)
-    {
-        for (int i = 0; i < hand->getSize(); i++)
-        {
-            score -= hand->get_tile_at_index(i)->getValue();
-        }
-    }
-}

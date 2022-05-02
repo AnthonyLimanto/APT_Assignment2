@@ -16,7 +16,6 @@ public:
     void add_points(int points);
     void draw_tile(Tile *tile);
     void print_hand();
-    void end_penalty();
 
     /* Getters */
     LinkedList *get_player_hand();

@@ -27,6 +27,9 @@ GameEngine::~GameEngine()
     }
 }
 
+void GameEngine::Engine()
+{
+}
 void GameEngine::addPlayer(std::string name)
 {
     players.push_back(new Player(name));
@@ -106,7 +109,7 @@ void GameEngine::user_inputs(std::string input)
             intTmp << loc.substr(1, 2);
             intTmp >> locInt;
             /* If valid then place tile otherwise toggle invalid */
-            if (locInt >= 0 || locInt <= 15)
+            if (locInt >= 0 || locInt <= BOARD_DIM_ROW)
             {
                 // tilePlace();
             }
