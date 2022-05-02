@@ -21,7 +21,10 @@ public:
    // 0 = first, 1 = second, length - 1 = last
    void remove_at_index(int i);
    Tile *get_tile_at_index(int i);
+   Tile *get_first_inst(Letter letter);
+   void remove_first_inst(Letter letter);
 
+   bool contains(Letter Letter);
    int getSize();
 
    // get first letter in hand, thats

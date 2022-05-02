@@ -12,6 +12,15 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
+   length = 0;
+   Node *nodePtr = head;
+   while (nodePtr != nullptr)
+   {
+      Node *next = nodePtr->next;
+      delete nodePtr;
+      nodePtr = next;
+   }
+   head = nullptr;
 }
 
 void LinkedList::add_front(Tile *tile)
@@ -49,11 +58,6 @@ void LinkedList::remove_front()
    {
       // do nothing
    }
-   else if (head->next == nullptr)
-   {
-      head = nullptr;
-      length -= 1;
-   }
    else
    {
       Node *toDel = head;
@@ -87,6 +91,7 @@ void LinkedList::remove_back()
 
 Tile *LinkedList::get_tile_at_index(int index)
 {
+   Tile *retTile = nullptr;
    if (head == nullptr)
    {
       throw std::runtime_error("Empty list");
@@ -99,9 +104,9 @@ Tile *LinkedList::get_tile_at_index(int index)
       {
          curr_node = curr_node->next;
       }
-      return curr_node->tile;
+      retTile = curr_node->tile;
    }
-   return nullptr;
+   return retTile;
 }
 
 void LinkedList::remove_at_index(int index)
@@ -133,4 +138,65 @@ void LinkedList::remove_at_index(int index)
 int LinkedList::getSize()
 {
    return length;
+}
+
+Tile *LinkedList::get_first_inst(Letter letter)
+{
+   bool found = false;
+   Tile *retTile = nullptr;
+   if (head == nullptr)
+   {
+      throw std::runtime_error("Empty list");
+   }
+   else
+   {
+      Node *curr_node = head;
+
+      for (int i = 0; i < length && !found; ++i)
+      {
+         if (curr_node->tile->getLetter() == letter && !found)
+         {
+            retTile = curr_node->tile;
+            found = true;
+         }
+         curr_node = curr_node->next;
+      }
+   }
+   return retTile;
+}
+
+void LinkedList::remove_first_inst(Letter letter)
+{
+   bool found = false;
+   Node *prev_node = nullptr;
+   Node *cur_node = head;
+   if (head->tile->getLetter() == letter)
+   {
+      head = head->next;
+      delete cur_node;
+   }
+   else
+   {
+      while (cur_node != nullptr && !found)
+      {
+         if (cur_node->tile->getLetter() == letter)
+         {
+            prev_node->next = cur_node->next;
+            delete cur_node;
+            found = true;
+         }
+         prev_node = cur_node;
+         cur_node = cur_node->next;
+      }
+   }
+   length--;
+}
+bool LinkedList::contains(Letter letter)
+{
+   bool ret = false;
+   if (get_first_inst(letter) != nullptr)
+   {
+      ret = true;
+   }
+   return ret;
 }

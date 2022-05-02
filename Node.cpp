@@ -9,8 +9,8 @@ Node::Node(Tile *tile, Node *next)
 
 Node::Node(Node &other)
 {
-   tile = new Tile(*other.tile);
-   next = other.next;
+   this->tile = new Tile(*other.tile);
+   this->next = other.next;
 }
 
 Node::~Node()

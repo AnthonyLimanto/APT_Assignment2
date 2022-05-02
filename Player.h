@@ -13,15 +13,15 @@ public:
     Player(Player &other);
     ~Player();
     /* Helper Methods */
-    void addPoints(int points);
-    void drawTile(Tile *tile);
-    void printHand();
-    void endPenalty();
+    void add_points(int points);
+    void draw_tile(Tile *tile);
+    void print_hand();
+    void end_penalty();
 
     /* Getters */
-    LinkedList getPlayerHand();
-    std::string getPlayerName();
-    int getPlayerScore();
+    LinkedList *get_player_hand();
+    std::string get_player_name();
+    int get_player_score();
 
 private:
     std::string name;

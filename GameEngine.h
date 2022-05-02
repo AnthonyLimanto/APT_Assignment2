@@ -17,7 +17,7 @@
 #define BOARD_DIM_ROW 15
 #define BOARD_DIM_COL 15
 #define MAX_HAND_SIZE 7
-#define TILEBAG_SIZE 98
+#define TILE_BAG_SIZE 98
 
 class GameEngine
 {
@@ -25,24 +25,27 @@ public:
     GameEngine();
     ~GameEngine();
 
-    void saveGame(std::string filename);
-    void loadGame(std::string filename);
+    void save_Game(std::string filename);
+    void load_Game(std::string filename);
 
     void addPlayer(std::string name);
-    void createTileBag();
-    void drawTile();
+    void create_tile_bag();
+    void draw_hands();
 
     /* Where the gameplay starts etc. */
     void Engine();
 
-    void getWinner();
-    void userInputs(std::string input);
-    void printBoard();
+    void get_winner();
+    void user_inputs(std::string input);
+    void print_board();
+    Player *current_player;
 
 private:
-    int numPlayers;
-    Player *currentPlayer;
-    LinkedList *tilebag;
+    int num_players;
+    bool turn_done;
+    bool exit;
+
+    LinkedList *tile_bag;
     std::vector<Player *> players;
     std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
 };

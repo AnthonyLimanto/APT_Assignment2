@@ -22,13 +22,13 @@ Player::~Player()
     delete hand;
 }
 
-void Player::addPoints(int points)
+void Player::add_points(int points)
 {
     this->score += points;
 }
 
 /* Add a tile to the hand */
-void Player::drawTile(Tile *tile)
+void Player::draw_tile(Tile *tile)
 {
     hand->add_front(tile);
 }
@@ -36,7 +36,7 @@ void Player::drawTile(Tile *tile)
 /* Prints the players hand.
  * Place holder method names for now.
  */
-void Player::printHand()
+void Player::print_hand()
 {
 
     std::cout << "Your hand is " << std::endl;
@@ -50,17 +50,17 @@ void Player::printHand()
     std::cout << std::endl;
 }
 
-LinkedList Player::getPlayerHand()
+LinkedList *Player::get_player_hand()
 {
-    return *hand;
+    return hand;
 }
 
-std::string Player::getPlayerName()
+std::string Player::get_player_name()
 {
     return name;
 }
 
-int Player::getPlayerScore()
+int Player::get_player_score()
 {
     return score;
 }
@@ -68,7 +68,7 @@ int Player::getPlayerScore()
 /* Method to apply end penalty if the player has cards left in thier hand.
  * Place holder method names for now.
  */
-void Player::endPenalty()
+void Player::end_penalty()
 {
     if (hand->getSize() > 0)
     {
