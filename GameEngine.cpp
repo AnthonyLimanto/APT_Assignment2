@@ -177,7 +177,7 @@ void GameEngine::user_inputs(std::string input)
 
 void GameEngine::print_board()
 {
-    current_player = players[0];
+
     std::cout << std::endl;
     std::cout << current_player->get_player_name() << ", it's your turn!" << std::endl;
     for (int i = 0; i < num_players; i++)
