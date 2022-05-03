@@ -30,7 +30,54 @@ GameEngine::~GameEngine()
 
 void GameEngine::Engine()
 {
+
+    bool end_check = false;
+    /* loops while the tilebag and players have tiles and eof is not parsed in */
+    while (!end_check && !std::cin.eof() && !exit)
+    {
+        draw_hands();
+        for (Player *player : players)
+        {
+            turn_done = false;
+            current_player = player;
+            /* Checks if the tilebag or playerhands are empty, ends game if both are 0 */
+            if (current_player->get_player_hand()->getSize() == 0 && tile_bag->getSize() == 0 && end_check == false)
+            {
+                end_check = true;
+            }
+            else if (!end_check && !exit)
+            {
+                /* Prints the board for each player turn */
+                print_board();
+                while (!turn_done && !exit)
+                {
+                    /* Gets the player input */
+                    std::string input;
+                    std::cout << "> ";
+                    std::getline(std::cin, input);
+
+                    if (input == "")
+                    {
+                        std::getline(std::cin, input);
+                    }
+                    if (std::cin.eof())
+                    {
+                        exit = true;
+                    }
+
+                    user_inputs(input);
+                }
+            }
+        }
+    }
+    /* Only prints the game over screen if the reason it gets here is end_check, otherwise don't print and leave */
+    if (end_check)
+    {
+        std::cout << "Game Over" << std::endl;
+        get_winner();
+    }
 }
+
 void GameEngine::addPlayer(std::string name)
 {
     players.push_back(new Player(name));
@@ -98,21 +145,29 @@ void GameEngine::user_inputs(std::string input)
     if (input.substr(0, 5) == "place" && input.substr(8, 2) == "at" && input.length() == 13)
     {
         /* Checks if the player owns the tile they want to place */
-        // if (currentPlayer->getPlayerHand().contains(input.at(6)))
-        // {
-        /* Checks if the location the place wants is valid */
-        std::string loc = input.substr(11, 3);
-        if ((loc[0] >= 'A' && loc[0] <= 'Z'))
+        if (current_player->get_player_hand()->contains(input.at(6)))
         {
-
-            int locInt;
-            std::stringstream intTmp;
-            intTmp << loc.substr(1, 2);
-            intTmp >> locInt;
-            /* If valid then place tile otherwise toggle invalid */
-            if (locInt >= 0 || locInt <= BOARD_DIM_ROW)
+            /* Checks if the location the place wants is valid */
+            std::string loc = input.substr(11, 3);
+            if ((loc[0] >= 'A' && loc[0] <= 'O'))
             {
-                // tilePlace();
+
+                int col;
+                std::stringstream intTmp;
+                intTmp << loc.substr(1, 2);
+                intTmp >> col;
+                int row = int(loc[0] - 65);
+                /* If valid then place tile otherwise toggle invalid */
+                if (col >= 0 || col <= BOARD_DIM_ROW)
+                {
+                    Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
+                    current_player->get_player_hand()->remove_first_inst(input.at(6));
+                    tilePlace(row, col, placed);
+                }
+                else
+                {
+                    invalid = true;
+                }
             }
             else
             {
@@ -123,9 +178,6 @@ void GameEngine::user_inputs(std::string input)
         {
             invalid = true;
         }
-        // }else{
-        //     invalid = true;
-        // }
     }
     else if (input.substr(0, 7) == "replace" && input.length() == 9)
     {
@@ -160,9 +212,10 @@ void GameEngine::user_inputs(std::string input)
     else if (input.substr(0, 4) == "save")
     {
         /* Saves the game then exits */
+        // save()
         exit = true;
     }
-    else if (input.substr(0, 4) == "quit")
+    else if (input.substr(0, 4) == "quit" || std::cin.eof())
     {
         /* Triggers the exit for the whole game */
         exit = true;
@@ -258,7 +311,7 @@ void GameEngine::draw_hands()
     }
 }
 
-void GameEngine::tilePlace(int row, int col, Tile* tile)
+void GameEngine::tilePlace(int row, int col, Tile *tile)
 {
     board[row][col] = tile;
 }
