@@ -38,6 +38,7 @@ public:
     void get_winner();
     void user_inputs(std::string input);
     void print_board();
+    void tilePlace(int row, int col, Tile* Tile);
     Player *current_player;
 
 private:
