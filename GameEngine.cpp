@@ -1,6 +1,7 @@
 
 #include "GameEngine.h"
 #include <sstream>
+
 GameEngine::GameEngine()
 {
     std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
@@ -255,4 +256,9 @@ void GameEngine::draw_hands()
             player->draw_tile(tile);
         }
     }
+}
+
+void GameEngine::tilePlace(int row, int col, Tile* tile)
+{
+    board[row][col] = tile;
 }
