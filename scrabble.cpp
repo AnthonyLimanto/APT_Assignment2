@@ -30,16 +30,7 @@ int main(void)
     if (choice == '1')
     {
       start_game();
-      std::string in;
-      std::cout << "> ";
-      std::getline(std::cin, in);
-      // Fixes immediate input
-      if (in == "")
-      {
-        std::getline(std::cin, in);
-      }
-      // Overloads function with user input
-      game_engine->user_inputs(in);
+
       exit = true;
     }
     else if (choice == '2')
