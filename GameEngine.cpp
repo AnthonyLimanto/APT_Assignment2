@@ -73,7 +73,6 @@ void GameEngine::Engine()
     /* Only prints the game over screen if the reason it gets here is end_check, otherwise don't print and leave */
     if (end_check)
     {
-        std::cout << "Game Over" << std::endl;
         get_winner();
     }
 }
@@ -164,7 +163,7 @@ void GameEngine::user_inputs(std::string input)
                 intTmp >> col;
                 int row = int(loc[0] - 65);
                 /* If valid then place tile otherwise toggle invalid */
-                if (col >= 0 || col <= BOARD_DIM_ROW)
+                if (col >= 0 && col <= BOARD_DIM_ROW)
                 {
                     Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
                     current_player->get_player_hand()->remove_first_inst(input.at(6));
