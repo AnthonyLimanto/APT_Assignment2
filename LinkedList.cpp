@@ -100,7 +100,7 @@ Tile *LinkedList::get_tile_at_index(int index)
    {
       Node *curr_node = head;
 
-      for (int i = index + 1; i < length; ++i)
+      for (int i = 0; i < index; ++i)
       {
          curr_node = curr_node->next;
       }
@@ -124,10 +124,10 @@ void LinkedList::remove_at_index(int index)
       Node *curr_node = head;
       Node *prev_node = nullptr;
 
-      for (int i = index + 1; i < length; ++i)
+      for (int i = 0; i < index; ++i)
       {
-         curr_node = curr_node->next;
          prev_node = curr_node;
+         curr_node = curr_node->next;
       }
       prev_node->next = curr_node->next;
       delete curr_node;

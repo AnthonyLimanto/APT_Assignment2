@@ -100,7 +100,15 @@ void GameEngine::create_tile_bag()
             tile_bag->add_front(tile);
         }
     }
-    /* TODO: Add random order to tile_bag */
+    /* Shuffling linked list by grabing random node within the none randomised section of the list */
+    srand(time(NULL));
+    for (int i = 0; i < tile_bag->getSize(); i++)
+    {
+        int random_index = rand() % (TILE_BAG_SIZE - i + 1);
+        Tile *selected = new Tile(*tile_bag->get_tile_at_index(random_index));
+        tile_bag->remove_at_index(random_index);
+        tile_bag->add_back(selected);
+    }
 }
 
 void GameEngine::get_winner()
@@ -112,8 +120,6 @@ void GameEngine::get_winner()
 
     for (Player *player : players)
     {
-        /* Deals points penalty if needed */
-        player->end_penalty();
 
         if (player->get_player_score() > topScore)
         {

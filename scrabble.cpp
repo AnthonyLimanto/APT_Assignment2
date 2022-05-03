@@ -107,8 +107,7 @@ void start_game()
   std::cout << "Let's Play!" << std::endl;
 
   game_engine->create_tile_bag();
-  game_engine->draw_hands();
-  game_engine->print_board();
+  game_engine->Engine();
 }
 
 bool upper_case_check(std::string name)
