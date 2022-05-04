@@ -187,10 +187,9 @@ void GameEngine::user_inputs(std::string input)
     else if (input.substr(0, 7) == "replace" && input.length() == 9)
     {
         Letter tile = input.at(8);
-        std::cout << tile << std::endl;
         if (tile >= 'A' && tile <= 'Z')
         {
-            if (current_player->get_player_hand()->contains(input.at(8)))
+            if (current_player->get_player_hand()->contains(tile))
             {
                 Tile *replaced = new Tile(*current_player->get_player_hand()->get_first_inst(tile));
                 tile_bag->add_back(replaced);
@@ -198,6 +197,7 @@ void GameEngine::user_inputs(std::string input)
                 Tile *new_tile = new Tile(*tile_bag->get_tile_at_index(0));
                 current_player->get_player_hand()->add_back(new_tile);
                 tile_bag->remove_front();
+                turn_done = true;
             }
             else
             {
