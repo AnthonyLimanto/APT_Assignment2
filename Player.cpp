@@ -10,6 +10,7 @@ Player::Player(std::string name)
     hand = new LinkedList();
     this->name = name;
     this->score = 0;
+    this->pass_count = 0;
 }
 Player::Player(Player &other)
 {
@@ -25,6 +26,16 @@ Player::~Player()
 void Player::add_points(int points)
 {
     this->score += points;
+}
+
+void Player::add_pass()
+{
+    this->pass_count += 1;
+}
+
+void Player::reset_passes()
+{
+    this->pass_count = 0;
 }
 
 /* Add a tile to the hand */
@@ -58,6 +69,11 @@ LinkedList *Player::get_player_hand()
 std::string Player::get_player_name()
 {
     return name;
+}
+
+int Player::get_player_passes()
+{
+    return pass_count;
 }
 
 int Player::get_player_score()

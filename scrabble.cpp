@@ -26,11 +26,9 @@ int main(void)
               << "> ";
     std::cin >> choice;
     std::cout << std::endl;
-
     if (choice == '1')
     {
       start_game();
-
       exit = true;
     }
     else if (choice == '2')

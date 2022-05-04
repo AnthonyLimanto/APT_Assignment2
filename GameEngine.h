@@ -36,14 +36,13 @@ public:
     void Engine();
 
     void get_winner();
-    void user_inputs(std::string input);
+    void user_inputs();
     void print_board();
-    void tilePlace(int row, int col, Tile* Tile);
+    void tilePlace(int row, int col, Tile *Tile);
     Player *current_player;
 
 private:
     int num_players;
-    bool turn_done;
     bool exit;
 
     LinkedList *tile_bag;
