@@ -101,10 +101,12 @@ void GameEngine::create_tile_bag()
 void GameEngine::get_winner()
 {
     std::cout << "Game Over" << std::endl;
+
     bool draw = false;
     int topScore = 0;
     std::string winnerName;
 
+    /* for each player check the scores and find the player/players with the highest score and add them to the winners as needed */
     for (Player *player : players)
     {
 
@@ -132,11 +134,14 @@ void GameEngine::get_winner()
 
 void GameEngine::user_inputs()
 {
+    int tiles_placed = 0;
     bool invalid = false;
     bool turn_done = false;
     /* Loopos while the turn is not done or EOF is not parsed in */
     while (!turn_done && !exit)
     {
+        /* Resets invalid check at every input so it only triggers invalid for its own iteration */
+        invalid = false;
         /* Gets the player input */
         std::string input;
         std::cout << "> ";
@@ -166,13 +171,16 @@ void GameEngine::user_inputs()
                     std::stringstream intTmp;
                     intTmp << loc.substr(1, 2);
                     intTmp >> col;
+                    /* converting the char to int */
                     int row = int(loc[0] - 65);
                     /* If valid then place tile otherwise toggle invalid */
-                    if (col >= 0 && col <= BOARD_DIM_ROW)
+                    if (col >= 0 && col <= BOARD_DIM_ROW && board[row][col] == nullptr)
                     {
                         Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
                         current_player->get_player_hand()->remove_first_inst(input.at(6));
                         tilePlace(row, col, placed);
+                        /* increase the tile placed count */
+                        tiles_placed += 1;
                     }
                     else
                     {
@@ -189,6 +197,7 @@ void GameEngine::user_inputs()
                 invalid = true;
             }
         }
+        /* Checks if the player input replace AND a letter */
         else if (input.substr(0, 7) == "replace" && input.length() == 9)
         {
             Letter tile = input.at(8);
@@ -216,7 +225,8 @@ void GameEngine::user_inputs()
                 invalid = true;
             }
         }
-        else if (input.substr(0, 4) == "pass")
+        /* Checks for pass and only allows pass when the player has not started placing tiles */
+        else if (input.substr(0, 4) == "pass" && tiles_placed == 0)
         {
             /* Adds to pass counter and passes turn */
             current_player->add_pass();
@@ -228,7 +238,8 @@ void GameEngine::user_inputs()
             current_player->reset_passes();
             turn_done = true;
         }
-        else if (input.substr(0, 4) == "save")
+        /* Checks for save and only allows save when the player has not started placing tiles */
+        else if (input.substr(0, 4) == "save" && tiles_placed == 0)
         {
             /* Saves the game then exits */
             // save()
@@ -250,17 +261,26 @@ void GameEngine::user_inputs()
             std::cout << "Invalid Input" << std::endl;
         }
     }
+    /* Checks if the player placed 7 tiles , if so add the Bingo points */
+    if (tiles_placed == 7)
+    {
+        std::cout << std::endl
+                  << "BINGO!!!" << std::endl;
+        current_player->add_points(50);
+    }
 }
 
 void GameEngine::print_board()
 {
-
+    /* Prints the current player's name and then prints all the players scores */
     std::cout << std::endl;
     std::cout << current_player->get_player_name() << ", it's your turn!" << std::endl;
     for (int i = 0; i < num_players; i++)
     {
         std::cout << "Score for " << players[i]->get_player_name() << ": " << players[i]->get_player_score() << std::endl;
     }
+
+    /* Prints the numbers boxing the board by adding 4, 2 or 3 spaces accordingly */
     for (int i = 0; i < BOARD_DIM_ROW; i++)
     {
         if (i == 0)
@@ -279,6 +299,7 @@ void GameEngine::print_board()
 
     std::cout << std::endl;
 
+    /* Prints the --s boxing the board as needed*/
     for (int i = 0; i <= BOARD_DIM_COL; i++)
     {
         if (i == BOARD_DIM_COL)
@@ -295,6 +316,8 @@ void GameEngine::print_board()
         }
     }
     std::cout << std::endl;
+
+    /* Prints the board, prints empty or filed as needed*/
     for (int row = 0; row < BOARD_DIM_ROW; row++)
     {
         char c = row + 65;
@@ -315,6 +338,7 @@ void GameEngine::print_board()
         std::cout << "|" << std::endl;
     }
 
+    /* Prints the current players hand */
     current_player->print_hand();
 }
 void GameEngine::draw_hands()
