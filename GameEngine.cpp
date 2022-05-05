@@ -232,7 +232,7 @@ void GameEngine::user_inputs()
             current_player->add_pass();
             turn_done = true;
         }
-        else if (input.substr(0, 4) == "done")
+        else if (input.substr(0, 10) == "place Done")
         {
             /* Triggers the turn to be done and resets pass counter*/
             current_player->reset_passes();

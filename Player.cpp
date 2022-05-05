@@ -17,6 +17,7 @@ Player::Player(Player &other)
     hand = new LinkedList(*other.hand);
     this->name = other.name;
     this->score = other.score;
+    this->pass_count = other.score;
 }
 Player::~Player()
 {
