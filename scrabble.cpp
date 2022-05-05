@@ -78,6 +78,7 @@ void print_student_info()
 
 void start_game()
 {
+  bool exit = false;
   std::string player_name;
   int player_count = 2;
   bool is_upper = false;
@@ -98,14 +99,20 @@ void start_game()
       {
         std::cout << "Invalid Input" << std::endl;
       }
+      if (std::cin.eof())
+      {
+        exit = true;
+      }
     }
     game_engine->addPlayer(player_name);
   }
+  if (!exit)
+  {
+    std::cout << "Let's Play!" << std::endl;
 
-  std::cout << "Let's Play!" << std::endl;
-
-  game_engine->create_tile_bag();
-  game_engine->Engine();
+    game_engine->create_tile_bag();
+    game_engine->Engine();
+  }
 }
 
 bool upper_case_check(std::string name)

@@ -91,7 +91,9 @@ void GameEngine::create_tile_bag()
     srand(time(NULL));
     for (int i = 0; i < tile_bag->getSize(); i++)
     {
+        /* get a random index within the un randomised section of the list */
         int random_index = rand() % (TILE_BAG_SIZE - i + 1);
+
         Tile *selected = new Tile(*tile_bag->get_tile_at_index(random_index));
         tile_bag->remove_at_index(random_index);
         tile_bag->add_back(selected);
@@ -198,7 +200,7 @@ void GameEngine::user_inputs()
             }
         }
         /* Checks if the player input replace AND a letter */
-        else if (input.substr(0, 7) == "replace" && input.length() == 9)
+        else if (input.substr(0, 7) == "replace" && input.length() == 9 && tiles_placed == 0)
         {
             Letter tile = input.at(8);
             if (tile >= 'A' && tile <= 'Z')
