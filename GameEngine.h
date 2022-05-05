@@ -40,6 +40,9 @@ public:
     void print_board();
     void tilePlace(int row, int col, Tile *Tile);
     Player *current_player;
+    
+
+    
 
 private:
     int num_players;

@@ -2,6 +2,7 @@
 #include "GameEngine.h"
 #include <sstream>
 
+
 GameEngine::GameEngine()
 {
     std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
@@ -361,3 +362,22 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
 {
     board[row][col] = tile;
 }
+
+void save_Game(std::string filename) {
+    std::ofsteam save_file;
+    save_file.open(filename);
+    
+    for (int i = 0; i < players.size(); i++) {
+        save_file << players[i]->get_player_name() << std::endl;
+        save_file << player[i]->get_player_score() << std::endl;
+        LinkedList* player_hand = get_player_hand();
+        for (int j = 0; j < player_hand->getSize(); ++j) {
+            Letter letter = player_hand->get_tile_at_index(j)->getLetter();
+            Value value = player_hand->get_tile_at_index(j)->getValue();
+            save_file << letter << "-" << value << ", "
+        }
+        save_file << std::endl;
+    }
+
+}
+
