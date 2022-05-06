@@ -245,7 +245,8 @@ void GameEngine::user_inputs()
         else if (input.substr(0, 4) == "save" && tiles_placed == 0)
         {
             /* Saves the game then exits */
-            // save()
+
+            save_Game(input.substr(5));
             exit = true;
         }
         else if (input.substr(0, 4) == "quit" || std::cin.eof())
