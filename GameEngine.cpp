@@ -1,7 +1,5 @@
 
 #include "GameEngine.h"
-#include <sstream>
-
 
 GameEngine::GameEngine()
 {
@@ -179,9 +177,11 @@ void GameEngine::user_inputs()
                     /* If valid then place tile otherwise toggle invalid */
                     if (col >= 0 && col <= BOARD_DIM_ROW && board[row][col] == nullptr)
                     {
+                        /* Creating a copy of the tile wanted to be placed and adding to board, removing from player and adding points. */
                         Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
                         current_player->get_player_hand()->remove_first_inst(input.at(6));
                         tilePlace(row, col, placed);
+                        current_player->add_points(placed->getValue());
                         /* increase the tile placed count */
                         tiles_placed += 1;
                     }
@@ -460,4 +460,3 @@ void GameEngine::save_Game(std::string filename) {
 
 
 }
-
