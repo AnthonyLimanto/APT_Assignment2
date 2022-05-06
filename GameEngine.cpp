@@ -1,7 +1,5 @@
 
 #include "GameEngine.h"
-#include <sstream>
-
 
 GameEngine::GameEngine()
 {
@@ -179,9 +177,11 @@ void GameEngine::user_inputs()
                     /* If valid then place tile otherwise toggle invalid */
                     if (col >= 0 && col <= BOARD_DIM_ROW && board[row][col] == nullptr)
                     {
+                        /* Creating a copy of the tile wanted to be placed and adding to board, removing from player and adding points. */
                         Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
                         current_player->get_player_hand()->remove_first_inst(input.at(6));
                         tilePlace(row, col, placed);
+                        current_player->add_points(placed->getValue());
                         /* increase the tile placed count */
                         tiles_placed += 1;
                     }
@@ -363,21 +363,22 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
     board[row][col] = tile;
 }
 
-void save_Game(std::string filename) {
+void save_Game(std::string filename)
+{
     std::ofsteam save_file;
     save_file.open(filename);
-    
-    for (int i = 0; i < players.size(); i++) {
+
+    for (int i = 0; i < players.size(); i++)
+    {
         save_file << players[i]->get_player_name() << std::endl;
         save_file << player[i]->get_player_score() << std::endl;
-        LinkedList* player_hand = get_player_hand();
-        for (int j = 0; j < player_hand->getSize(); ++j) {
+        LinkedList *player_hand = get_player_hand();
+        for (int j = 0; j < player_hand->getSize(); ++j)
+        {
             Letter letter = player_hand->get_tile_at_index(j)->getLetter();
             Value value = player_hand->get_tile_at_index(j)->getValue();
             save_file << letter << "-" << value << ", "
         }
         save_file << std::endl;
     }
-
 }
-

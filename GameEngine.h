@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include "Node.h"
 #include "LinkedList.h"
@@ -40,9 +41,6 @@ public:
     void print_board();
     void tilePlace(int row, int col, Tile *Tile);
     Player *current_player;
-    
-
-    
 
 private:
     int num_players;
