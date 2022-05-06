@@ -363,21 +363,101 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
     board[row][col] = tile;
 }
 
-void save_Game(std::string filename) {
-    std::ofsteam save_file;
+void GameEngine::save_Game(std::string filename) {
+    std::ofstream save_file;
     save_file.open(filename);
-    
-    for (int i = 0; i < players.size(); i++) {
+
+
+    // goes through all players and prints their details
+    for (int i = 0; i < num_players; i++) {
         save_file << players[i]->get_player_name() << std::endl;
-        save_file << player[i]->get_player_score() << std::endl;
-        LinkedList* player_hand = get_player_hand();
-        for (int j = 0; j < player_hand->getSize(); ++j) {
+        save_file << players[i]->get_player_score() << std::endl;
+        LinkedList* player_hand =players[i]->get_player_hand();
+        for (int j = 0; j < player_hand->getSize() - 1; ++j) {
             Letter letter = player_hand->get_tile_at_index(j)->getLetter();
             Value value = player_hand->get_tile_at_index(j)->getValue();
-            save_file << letter << "-" << value << ", "
+            save_file << letter << "-" << value << ", ";
         }
-        save_file << std::endl;
+        // last player is printed here so theres no comma at the end
+        Letter letter = player_hand->get_tile_at_index(player_hand->getSize() - 1)->getLetter();
+        Value value = player_hand->get_tile_at_index(player_hand->getSize() - 1)->getValue();
+        save_file << letter << "-" << value << std::endl;
+
     }
+    // used the code above to print board to the save file
+    /* Prints the numbers boxing the board by adding 4, 2 or 3 spaces accordingly */
+    for (int i = 0; i < BOARD_DIM_ROW; i++)
+    {
+        if (i == 0)
+        {
+            save_file << "    " << i;
+        }
+        else if (i >= 10)
+        {
+            save_file << "  " << i;
+        }
+        else
+        {
+            save_file << "   " << i;
+        }
+    }
+
+    save_file << std::endl;
+
+    /* Prints the --s boxing the board as needed*/
+    for (int i = 0; i <= BOARD_DIM_COL; i++)
+    {
+        if (i == BOARD_DIM_COL)
+        {
+            save_file << "-----";
+        }
+        else if (i == 0)
+        {
+            save_file << "  ";
+        }
+        else
+        {
+            save_file << "----";
+        }
+    }
+    save_file << std::endl;
+
+    /* Prints the board, prints empty or filed as needed*/
+    for (int row = 0; row < BOARD_DIM_ROW; row++)
+    {
+        char c = row + 65;
+        save_file << c << " ";
+        for (int col = 0; col < BOARD_DIM_COL; col++)
+        {
+            if (board[row][col] != nullptr)
+            {
+                save_file << "| " << board[row][col]->getLetter() << " ";
+            }
+            else
+            {
+
+                save_file << "|   ";
+            }
+        }
+
+        save_file << "|" << std::endl;
+    }
+    // prints the bag
+    for (int j = 0; j < tile_bag->getSize() - 1; ++j) {
+            Letter letter = tile_bag->get_tile_at_index(j)->getLetter();
+            Value value = tile_bag->get_tile_at_index(j)->getValue();
+            save_file << letter << "-" << value << ", ";
+        }
+    // last tile printed here to remove comma 
+    Letter letter = tile_bag->get_tile_at_index(tile_bag->getSize() - 1)->getLetter();
+    Value value = tile_bag->get_tile_at_index(tile_bag->getSize() - 1)->getValue();
+    save_file << letter << "-" << value << std::endl;
+
+    // prints current player
+    save_file << current_player->get_player_name() << std::endl;
+
+
+
 
 }
 
