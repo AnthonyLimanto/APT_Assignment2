@@ -242,7 +242,7 @@ void GameEngine::user_inputs()
             turn_done = true;
         }
         /* Checks for save and only allows save when the player has not started placing tiles */
-        else if (input.substr(0, 4) == "save" && tiles_placed == 0)
+        else if (input.substr(0, 4) == "save" && input.length() >= 6 && tiles_placed == 0)
         {
             /* Saves the game then exits */
 
@@ -364,17 +364,19 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
     board[row][col] = tile;
 }
 
-void GameEngine::save_Game(std::string filename) {
+void GameEngine::save_Game(std::string filename)
+{
     std::ofstream save_file;
     save_file.open(filename);
 
-
     // goes through all players and prints their details
-    for (int i = 0; i < num_players; i++) {
+    for (int i = 0; i < num_players; i++)
+    {
         save_file << players[i]->get_player_name() << std::endl;
         save_file << players[i]->get_player_score() << std::endl;
-        LinkedList* player_hand =players[i]->get_player_hand();
-        for (int j = 0; j < player_hand->getSize() - 1; ++j) {
+        LinkedList *player_hand = players[i]->get_player_hand();
+        for (int j = 0; j < player_hand->getSize() - 1; ++j)
+        {
             Letter letter = player_hand->get_tile_at_index(j)->getLetter();
             Value value = player_hand->get_tile_at_index(j)->getValue();
             save_file << letter << "-" << value << ", ";
@@ -383,7 +385,6 @@ void GameEngine::save_Game(std::string filename) {
         Letter letter = player_hand->get_tile_at_index(player_hand->getSize() - 1)->getLetter();
         Value value = player_hand->get_tile_at_index(player_hand->getSize() - 1)->getValue();
         save_file << letter << "-" << value << std::endl;
-
     }
     // used the code above to print board to the save file
     /* Prints the numbers boxing the board by adding 4, 2 or 3 spaces accordingly */
@@ -444,20 +445,17 @@ void GameEngine::save_Game(std::string filename) {
         save_file << "|" << std::endl;
     }
     // prints the bag
-    for (int j = 0; j < tile_bag->getSize() - 1; ++j) {
-            Letter letter = tile_bag->get_tile_at_index(j)->getLetter();
-            Value value = tile_bag->get_tile_at_index(j)->getValue();
-            save_file << letter << "-" << value << ", ";
-        }
-    // last tile printed here to remove comma 
+    for (int j = 0; j < tile_bag->getSize() - 1; ++j)
+    {
+        Letter letter = tile_bag->get_tile_at_index(j)->getLetter();
+        Value value = tile_bag->get_tile_at_index(j)->getValue();
+        save_file << letter << "-" << value << ", ";
+    }
+    // last tile printed here to remove comma
     Letter letter = tile_bag->get_tile_at_index(tile_bag->getSize() - 1)->getLetter();
     Value value = tile_bag->get_tile_at_index(tile_bag->getSize() - 1)->getValue();
     save_file << letter << "-" << value << std::endl;
 
     // prints current player
     save_file << current_player->get_player_name() << std::endl;
-
-
-
-
 }
