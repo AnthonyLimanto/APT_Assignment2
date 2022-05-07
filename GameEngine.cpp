@@ -75,15 +75,18 @@ void GameEngine::create_tile_bag()
     std::ifstream file("ScrabbleTiles.txt");
     int numRead = 0;
     int value = 0;
-    char letter;
+    char letter = '\0';
     while (!file.eof() && numRead < TILE_BAG_SIZE)
     {
         if (file.good())
         {
             file >> letter;
             file >> value;
-            Tile *tile = new Tile(letter, value);
-            tile_bag->add_front(tile);
+            if (letter != '\0')
+            {
+                Tile *tile = new Tile(letter, value);
+                tile_bag->add_front(tile);
+            }
         }
     }
     /* Shuffling linked list by grabing random node within the none randomised section of the list and moving it to the back */
