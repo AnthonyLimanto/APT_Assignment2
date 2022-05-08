@@ -364,6 +364,7 @@ void GameEngine::draw_hands()
 
 void GameEngine::tilePlace(int row, int col, Tile *tile)
 {
+    bool invalid = false;
     if (isEmpty() == true)
     {
         board[row][col] = tile;
@@ -376,7 +377,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input " << std::endl;
+            invalid = true;
         }
     }
     else if (row == 0 && col < 14 ) //checks if tile is top row excl. top-left and top-right
@@ -387,7 +388,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (row == 0 && col == 14) //checks if tile is top-right
@@ -398,7 +399,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (row == 14 && col == 0) //checks if tile is bottom-left
@@ -409,7 +410,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (row == 14 && col < 14) //checks if tile is bottom row excl. top-left and top-right
@@ -420,7 +421,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (row == 14 && col == 14) //checks if tile is bottom-right
@@ -431,7 +432,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (col == 0 && row < 14 ) //checks if tile is on left edge
@@ -442,7 +443,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     else if (col == 14 && col < 14) //checks if tile is on right edge
@@ -453,7 +454,7 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
         else if (row < 14 && col < 14) //checks if tile is in the middle
@@ -464,11 +465,16 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
         }
         else
         {
-            std::cout << "Invalid Input" << std::endl;
+            invalid = true;
         }
     }
     
     else
+    {
+        invalid = true;
+    }
+
+    if (invalid == true)
     {
         std::cout << "Invalid Input" << std::endl;
     }
