@@ -368,13 +368,109 @@ void GameEngine::tilePlace(int row, int col, Tile *tile)
     {
         board[row][col] = tile;
     }
-    else if (board[row+1][col] != NULL || board[row-1][col] != NULL || board[row][col+1] != NULL || board[row][col-1] != NULL)
-    {
-        board[row][col] = tile;
+    else if (row == 0 && col == 0) // checks if tile is top-left
+    { 
+        if (board[row+1][col] != NULL || board[row][col+1] != NULL )
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input " << std::endl;
+        }
     }
+    else if (row == 0 && col < 14 ) //checks if tile is top row excl. top-left and top-right
+    { 
+        if (board[row+1][col] != NULL || board[row][col+1] != NULL || board[row][col-1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (row == 0 && col == 14) //checks if tile is top-right
+    { 
+        if (board[row+1][col] != NULL || board[row][col-1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (row == 14 && col == 0) //checks if tile is bottom-left
+    { 
+        if (board[row-1][col] != NULL || board[row][col+1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (row == 14 && col < 14) //checks if tile is bottom row excl. top-left and top-right
+    { 
+        if (board[row-1][col] != NULL || board[row][col+1] != NULL || board[row][col-1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (row == 14 && col == 14) //checks if tile is bottom-right
+    { 
+        if (board[row-1][col] != NULL || board[row][col-1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (col == 0 && row < 14 ) //checks if tile is top-right
+    { 
+        if (board[row+1][col] != NULL || board[row-1][col] != NULL || board[row][col+1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    else if (col == 14 && col < 14) //checks if tile is top-right
+    { 
+        if (board[row+1][col] != NULL || board[row-1][col] != NULL || board[row][col-1] != NULL)
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+        else if (row < 14 && col < 14) //checks if tile is top-right
+    { 
+        if (board[row+1][col] != NULL || board[row-1][col] != NULL || board[row][col+1] != NULL || board[row][col-1] != NULL )
+        {
+            board[row][col] = tile;
+        }
+        else
+        {
+            std::cout << "Invalid Input" << std::endl;
+        }
+    }
+    
     else
     {
-        std::cout << "Invalid Tile Placement " << std::endl;
+        std::cout << "Invalid Input" << std::endl;
     }
     
 }
@@ -386,7 +482,7 @@ bool GameEngine::isEmpty()
     {
         for (int j = 0; j < BOARD_DIM_COL; j++)
         {
-            if (board[i][j] != NULL)
+            if (board[i][j] != nullptr)
             {
                 isempty = false;
                 return isempty;
