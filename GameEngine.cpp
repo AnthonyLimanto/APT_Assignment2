@@ -364,9 +364,37 @@ void GameEngine::draw_hands()
 
 void GameEngine::tilePlace(int row, int col, Tile *tile)
 {
-    board[row][col] = tile;
+    if (isEmpty() == true)
+    {
+        board[row][col] = tile;
+    }
+    else if (board[row+1][col] != NULL || board[row-1][col] != NULL || board[row][col+1] != NULL || board[row][col-1] != NULL)
+    {
+        board[row][col] = tile;
+    }
+    else
+    {
+        std::cout << "Invalid Tile Placement " << std::endl;
+    }
+    
 }
 
+bool GameEngine::isEmpty()
+{
+    bool isempty = true;
+    for (int i = 0; i < BOARD_DIM_ROW; i++)
+    {
+        for (int j = 0; j < BOARD_DIM_COL; j++)
+        {
+            if (board[i][j] != NULL)
+            {
+                isempty = false;
+                return isempty;
+            }
+        }
+    }
+    return isempty;
+}
 void GameEngine::save_Game(std::string filename)
 {
     std::ofstream save_file;
