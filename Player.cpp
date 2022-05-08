@@ -42,7 +42,7 @@ void Player::reset_passes()
 /* Add a tile to the hand */
 void Player::draw_tile(Tile *tile)
 {
-    hand->add_front(tile);
+    hand->add_back(tile);
 }
 
 /* Prints the players hand.

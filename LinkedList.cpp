@@ -36,7 +36,7 @@ void LinkedList::add_back(Tile *tile)
 
    if (head == nullptr)
    {
-      add_front(tile);
+      head = node;
    }
    else
    {

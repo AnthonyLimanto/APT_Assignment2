@@ -354,7 +354,7 @@ void GameEngine::draw_hands()
     /* For each player draws untill their hand is full or if tile bag is empty as many as they can */
     for (Player *player : players)
     {
-        for (int i = player->get_player_hand()->getSize(); i < MAX_HAND_SIZE && tile_bag->getSize() > 0; i++)
+        for (int i = player->get_player_hand()->getSize(); i <= MAX_HAND_SIZE && tile_bag->getSize() > 0; i++)
         {
             Tile *tile = new Tile(*tile_bag->get_tile_at_index(0));
             tile_bag->remove_front();
@@ -483,6 +483,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else
     {
+        current_player->get_player_hand()->remove_first_inst(placed->getLetter());
         current_player->add_points(placed->getValue());
     }
     /* Reusing invalid as the return value, if invalid is false tile was placed */
