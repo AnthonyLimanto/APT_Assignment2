@@ -25,7 +25,6 @@ int main(void)
     std::cout << std::endl
               << "> ";
     std::cin >> choice;
-    std::cout << std::endl;
     if (choice == '1')
     {
       start_game();
@@ -45,7 +44,7 @@ int main(void)
     }
     else
     {
-      std::cout << "Invalid Input";
+      std::cout << "Invalid Input" << std::endl;
     }
   }
 
@@ -89,10 +88,12 @@ void start_game()
     is_upper = false;
     while (!is_upper)
     {
-      std::cout << "Enter a name for player " << i << " (uppercase characters only)"
+      std::cout << "Enter a name for player " << i + 1 << " (uppercase characters only)"
                 << std::endl
                 << " > ";
       std::cin >> player_name;
+      std::cout << std::endl;
+
       is_upper = upper_case_check(player_name);
 
       if (!is_upper)

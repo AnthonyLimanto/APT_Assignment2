@@ -157,6 +157,7 @@ void GameEngine::user_inputs()
         }
         if (std::cin.eof())
         {
+            std::cout << std::endl;
             exit = true;
         }
 
