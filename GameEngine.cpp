@@ -168,36 +168,43 @@ void GameEngine::user_inputs()
             if (current_player->get_player_hand()->contains(input.at(6)))
             {
                 /* Checks if the location the place wants is valid */
-                std::string loc = input.substr(11, 3);
-                if ((loc[0] >= 'A' && loc[0] <= 'O'))
+                std::string loc = input.substr(11);
+                if ((loc[0] >= 'A' && loc[0] <= 'O') && loc.length() <= 3)
                 {
-
-                    int col;
-                    std::string intTmp;
-                    intTmp = loc.substr(1, 2);
-                    col = std::stoi(intTmp);
-                    /* converting the char to int */
-                    int row = int(loc[0] - 65);
-                    /* If valid then place tile otherwise toggle invalid */
-                    if (col >= 0 && col < BOARD_DIM_ROW)
+                    std::stringstream intTmp;
+                    intTmp << loc.substr(1, 2);
+                    /* Checks if the location is an number */
+                    if (!intTmp.fail() && intTmp.eof())
                     {
-                        if (board[row][col] == nullptr)
+                        int col;
+                        intTmp >> col;
+                        /* converting the char to int */
+                        int row = int(loc[0] - 65);
+                        /* If valid then place tile otherwise toggle invalid */
+                        if (col >= 0 && col < BOARD_DIM_ROW)
                         {
-                            /* If tilePlace returns false a tile was placed */
-                            if (!tilePlace(row, col, current_player->get_player_hand()->get_first_inst(input.at(6))))
+                            if (board[row][col] == nullptr)
                             {
-                                tiles_placed += 1;
+                                /* If tilePlace returns false a tile was placed */
+                                if (!tilePlace(row, col, current_player->get_player_hand()->get_first_inst(input.at(6))))
+                                {
+                                    tiles_placed += 1;
+                                }
                             }
+                            else
+                            {
+                                invalid = true;
+                            }
+                            /* increase the tile placed count */
                         }
                         else
                         {
+
                             invalid = true;
                         }
-                        /* increase the tile placed count */
                     }
                     else
                     {
-
                         invalid = true;
                     }
                 }
