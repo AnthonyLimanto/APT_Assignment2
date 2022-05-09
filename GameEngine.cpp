@@ -179,12 +179,19 @@ void GameEngine::user_inputs()
                     /* converting the char to int */
                     int row = int(loc[0] - 65);
                     /* If valid then place tile otherwise toggle invalid */
-                    if (col >= 0 && col <= BOARD_DIM_ROW && board[row][col] == nullptr)
+                    if (col >= 0 && col < BOARD_DIM_ROW)
                     {
-                        /* If tilePlace returns false a tile was placed */
-                        if (!tilePlace(row, col, current_player->get_player_hand()->get_first_inst(input.at(6))))
+                        if (board[row][col] == nullptr)
                         {
-                            tiles_placed += 1;
+                            /* If tilePlace returns false a tile was placed */
+                            if (!tilePlace(row, col, current_player->get_player_hand()->get_first_inst(input.at(6))))
+                            {
+                                tiles_placed += 1;
+                            }
+                        }
+                        else
+                        {
+                            invalid = true;
                         }
                         /* increase the tile placed count */
                     }
