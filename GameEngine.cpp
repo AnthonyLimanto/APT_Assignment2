@@ -173,9 +173,9 @@ void GameEngine::user_inputs()
                 {
 
                     int col;
-                    std::stringstream intTmp;
-                    intTmp << loc.substr(1, 2);
-                    intTmp >> col;
+                    std::string intTmp;
+                    intTmp = loc.substr(1, 2);
+                    col = std::stoi(intTmp);
                     /* converting the char to int */
                     int row = int(loc[0] - 65);
                     /* If valid then place tile otherwise toggle invalid */
@@ -383,7 +383,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
             invalid = true;
         }
     }
-    else if (row == 0 && col < 14) // checks if tile is top row excl. top-left and top-right
+    else if (row == 0 && col <= 14) // checks if tile is top row excl. top-left and top-right
     {
         if (board[row + 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
@@ -416,7 +416,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
             invalid = true;
         }
     }
-    else if (row == 14 && col < 14) // checks if tile is bottom row excl. top-left and top-right
+    else if (row == 14 && col <= 14) // checks if tile is bottom row excl. top-left and top-right
     {
         if (board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
@@ -438,7 +438,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
             invalid = true;
         }
     }
-    else if (col == 0 && row < 14) // checks if tile is on left edge
+    else if (col == 0 && row <= 14) // checks if tile is on left edge
     {
         if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr)
         {
@@ -449,7 +449,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
             invalid = true;
         }
     }
-    else if (col == 14 && col < 14) // checks if tile is on right edge
+    else if (col == 14 && col <= 14) // checks if tile is on right edge
     {
         if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col - 1] != nullptr)
         {
@@ -460,7 +460,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
             invalid = true;
         }
     }
-    else if (row < 14 && col < 14) // checks if tile is in the middle
+    else if (row <= 14 && col <= 14) // checks if tile is in the middle
     {
         if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
