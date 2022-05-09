@@ -10,7 +10,9 @@ GameEngine *game_engine;
 int main(void)
 {
   game_engine = new GameEngine();
-  std::cout << "Menu" << std::endl
+  std::cout << "Welcome To Scrabble!" << std::endl
+            << "--------------------" << std::endl
+            << "Menu" << std::endl
             << "----" << std::endl
             << "1. New Game" << std::endl
             << "2. Load Game" << std::endl
