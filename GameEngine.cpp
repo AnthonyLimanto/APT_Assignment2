@@ -107,7 +107,7 @@ void GameEngine::get_winner()
     std::cout << "Game Over" << std::endl;
 
     bool draw = false;
-    int topScore = 0;
+    int topScore = -1;
     std::string winnerName;
 
     /* for each player check the scores and find the player/players with the highest score and add them to the winners as needed */
@@ -225,7 +225,7 @@ void GameEngine::user_inputs()
                     tile_bag->add_back(replaced);
                     current_player->get_player_hand()->remove_first_inst(tile);
                     Tile *new_tile = new Tile(*tile_bag->get_tile_at_index(0));
-                    current_player->get_player_hand()->add_back(new_tile);
+                    current_player->draw_tile(new_tile);
                     tile_bag->remove_front();
                     turn_done = true;
                     current_player->reset_passes();
