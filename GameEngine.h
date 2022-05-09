@@ -30,11 +30,18 @@ public:
     void load_Game(std::string filename);
 
     void addPlayer(std::string name);
+    // for loading
+    void addPlayer(Player* player);
+    void set_curr_player(std::string name);
+    void set_tile_bag(LinkedList* bag);
+    
+
     void create_tile_bag();
     void draw_hands();
 
     /* Where the gameplay starts etc. */
     void Engine();
+
 
     void get_winner();
     void user_inputs();

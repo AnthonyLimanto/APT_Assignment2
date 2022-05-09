@@ -70,6 +70,12 @@ void GameEngine::addPlayer(std::string name)
     num_players++;
 }
 
+void GameEngine::addPlayer(Player* player)
+{
+    players.push_back(player);
+    num_players++;
+}
+
 void GameEngine::create_tile_bag()
 {
     std::ifstream file("ScrabbleTiles.txt");
@@ -249,8 +255,9 @@ void GameEngine::user_inputs()
         {
             /* Saves the game then exits */
 
-            save_Game(input.substr(5));
-            exit = true;
+            std::string filename = input.substr(5) + ".save";
+            save_Game(filename);
+            
         }
         else if (input.substr(0, 4) == "quit" || std::cin.eof())
         {
@@ -364,6 +371,7 @@ void GameEngine::draw_hands()
 
 void GameEngine::tilePlace(int row, int col, Tile *tile)
 {
+    
     board[row][col] = tile;
 }
 
@@ -389,64 +397,20 @@ void GameEngine::save_Game(std::string filename)
         Value value = player_hand->get_tile_at_index(player_hand->getSize() - 1)->getValue();
         save_file << letter << "-" << value << std::endl;
     }
-    // used the code above to print board to the save file
-    /* Prints the numbers boxing the board by adding 4, 2 or 3 spaces accordingly */
-    for (int i = 0; i < BOARD_DIM_ROW; i++)
-    {
-        if (i == 0)
-        {
-            save_file << "    " << i;
-        }
-        else if (i >= 10)
-        {
-            save_file << "  " << i;
-        }
-        else
-        {
-            save_file << "   " << i;
-        }
-    }
 
-    save_file << std::endl;
+    for (int row = 0; row < BOARD_DIM_ROW; row++) {
 
-    /* Prints the --s boxing the board as needed*/
-    for (int i = 0; i <= BOARD_DIM_COL; i++)
-    {
-        if (i == BOARD_DIM_COL)
-        {
-            save_file << "-----";
-        }
-        else if (i == 0)
-        {
-            save_file << "  ";
-        }
-        else
-        {
-            save_file << "----";
-        }
-    }
-    save_file << std::endl;
-
-    /* Prints the board, prints empty or filed as needed*/
-    for (int row = 0; row < BOARD_DIM_ROW; row++)
-    {
         char c = row + 65;
-        save_file << c << " ";
-        for (int col = 0; col < BOARD_DIM_COL; col++)
-        {
-            if (board[row][col] != nullptr)
-            {
-                save_file << "| " << board[row][col]->getLetter() << " ";
-            }
-            else
-            {
-
-                save_file << "|   ";
+        for (int col = 0; col < BOARD_DIM_COL; col++) {
+            if (board[row][col] != nullptr) {
+                Letter letter = board[row][col]->getLetter();
+                
+                save_file << letter << "@" << c << col << " ";
             }
         }
-
-        save_file << "|" << std::endl;
     }
+    save_file << std::endl;
+    
     // prints the bag
     for (int j = 0; j < tile_bag->getSize() - 1; ++j)
     {
@@ -461,4 +425,76 @@ void GameEngine::save_Game(std::string filename)
 
     // prints current player
     save_file << current_player->get_player_name() << std::endl;
+
+    save_file.close();
 }
+
+void GameEngine::set_curr_player(std::string name) {
+    if (players[0]->get_player_name() == name) {
+        this->current_player = players[0];
+    } 
+    else if (players[1]->get_player_name() == name) {
+        this->current_player = players[1];
+    }
+    else {
+        std::cout << "Player " << name << " doesn't exist";
+    }
+}
+
+void GameEngine::set_tile_bag(LinkedList* bag) {
+    this->tile_bag = bag;
+    std::cout << "here" << std::endl;
+}
+
+// void GameEngine::Engine_load()
+// {
+
+//     bool end_check = false;
+//     /* loops while the tilebag and players have tiles, eof is not parsed in and the current player has not passed twice in a row. */
+//     while (!end_check && !std::cin.eof() && !exit)
+//     {
+//         draw_hands();
+//         for (Player *player : players)
+//         {
+            
+//             /* Checks if the tilebag or playerhands are empty, ends game if both are 0 */
+//             if ((current_player->get_player_hand()->getSize() == 0 && tile_bag->getSize() == 0))
+//             {
+//                 end_check = true;
+//             }
+//             else if (!end_check && !exit)
+//             {
+//                 /* Prints the board for each player turn and gets user inputs */
+//                 print_board();
+//                 user_inputs();
+
+//                 /* Checks if the player has passed twice in a row and ends game if needed */
+//                 if (current_player->get_player_passes() > 1)
+//                 {
+//                     end_check = true;
+//                 }
+//             }
+//         }
+//     }
+
+//     /* Only prints the game over screen if the reason it gets here is end_check, otherwise don't print and leave */
+//     if (end_check)
+//     {
+//         get_winner();
+//     }
+// }
+
+
+// void GameEngine::load_Game(std::string save_file) {
+//     std::ifstream save_file_reader;
+
+//     save_file.open(save_file);
+
+//     if (!save_file_reader) {
+//         std::cout << "File does not exist"
+//     }
+//     else {
+//         std::string line;
+//         getline(save_file_reader, line)
+//     }
+// }

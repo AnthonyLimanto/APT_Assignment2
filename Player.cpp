@@ -81,3 +81,13 @@ int Player::get_player_score()
 {
     return score;
 }
+
+
+
+Player::Player(std::string name, int points, LinkedList* hand) {
+    this->pass_count = 0;
+    this->hand = hand;
+    this->score = points;
+    this->name = name;
+}
+

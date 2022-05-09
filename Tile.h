@@ -12,6 +12,7 @@ class Tile
 {
 public:
    Tile(Letter letter, Value value);
+   Tile(Letter letter);
    Tile(Tile &other);
    ~Tile();
    Letter getLetter();

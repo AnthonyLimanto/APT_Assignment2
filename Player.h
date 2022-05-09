@@ -10,6 +10,8 @@ class Player
 {
 public:
     Player(std::string name);
+    // for loading a saved game
+    Player(std::string name, int points, LinkedList* hand);
     Player(Player &other);
     ~Player();
     /* Helper Methods */
@@ -18,6 +20,8 @@ public:
     void draw_tile(Tile *tile);
     void print_hand();
     void reset_passes();
+
+   
 
     /* Getters */
     LinkedList *get_player_hand();
