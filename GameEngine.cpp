@@ -373,7 +373,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 0 && col == 0) // checks if tile is top-left
     {
-        if (board[row + 1][col] != NULL || board[row][col + 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row][col + 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -384,7 +384,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 0 && col < 14) // checks if tile is top row excl. top-left and top-right
     {
-        if (board[row + 1][col] != NULL || board[row][col + 1] != NULL || board[row][col - 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -395,7 +395,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 0 && col == 14) // checks if tile is top-right
     {
-        if (board[row + 1][col] != NULL || board[row][col - 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -406,7 +406,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 14 && col == 0) // checks if tile is bottom-left
     {
-        if (board[row - 1][col] != NULL || board[row][col + 1] != NULL)
+        if (board[row - 1][col] != nullptr || board[row][col + 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -417,7 +417,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 14 && col < 14) // checks if tile is bottom row excl. top-left and top-right
     {
-        if (board[row - 1][col] != NULL || board[row][col + 1] != NULL || board[row][col - 1] != NULL)
+        if (board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -428,7 +428,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row == 14 && col == 14) // checks if tile is bottom-right
     {
-        if (board[row - 1][col] != NULL || board[row][col - 1] != NULL)
+        if (board[row - 1][col] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -439,7 +439,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (col == 0 && row < 14) // checks if tile is on left edge
     {
-        if (board[row + 1][col] != NULL || board[row - 1][col] != NULL || board[row][col + 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -450,7 +450,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (col == 14 && col < 14) // checks if tile is on right edge
     {
-        if (board[row + 1][col] != NULL || board[row - 1][col] != NULL || board[row][col - 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -461,7 +461,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     }
     else if (row < 14 && col < 14) // checks if tile is in the middle
     {
-        if (board[row + 1][col] != NULL || board[row - 1][col] != NULL || board[row][col + 1] != NULL || board[row][col - 1] != NULL)
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
         {
             board[row][col] = placed;
         }
@@ -478,7 +478,7 @@ bool GameEngine::tilePlace(int row, int col, Tile *tile)
     /* If invalid delete the tile that was meant to be placed otherwise add the points */
     if (invalid == true)
     {
-        std::cout << "Invalid Input" << std::endl;
+        std::cout << "Invalid Tile Input" << std::endl;
         delete placed;
     }
     else
