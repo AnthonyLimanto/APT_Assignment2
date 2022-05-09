@@ -46,7 +46,8 @@ public:
     void get_winner();
     void user_inputs();
     void print_board();
-    void tilePlace(int row, int col, Tile *Tile);
+    bool tilePlace(int row, int col, Tile *Tile);
+    bool isEmpty();
     Player *current_player;
 
 private:

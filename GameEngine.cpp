@@ -113,7 +113,7 @@ void GameEngine::get_winner()
     std::cout << "Game Over" << std::endl;
 
     bool draw = false;
-    int topScore = 0;
+    int topScore = -1;
     std::string winnerName;
 
     /* for each player check the scores and find the player/players with the highest score and add them to the winners as needed */
@@ -163,36 +163,51 @@ void GameEngine::user_inputs()
         }
         if (std::cin.eof())
         {
+            std::cout << std::endl;
             exit = true;
         }
 
         /* Checks if the input is a valid command */
-        if (input.substr(0, 5) == "place" && input.substr(8, 2) == "at" && input.length() == 13)
+        if (input.substr(0, 5) == "place" && input.substr(8, 2) == "at" && input.length() >= 13)
         {
             /* Checks if the player owns the tile they want to place */
             if (current_player->get_player_hand()->contains(input.at(6)))
             {
                 /* Checks if the location the place wants is valid */
-                std::string loc = input.substr(11, 3);
-                if ((loc[0] >= 'A' && loc[0] <= 'O'))
+                std::string loc = input.substr(11);
+                if ((loc[0] >= 'A' && loc[0] <= 'O') && loc.length() <= 3)
                 {
-
-                    int col;
                     std::stringstream intTmp;
                     intTmp << loc.substr(1, 2);
-                    intTmp >> col;
-                    /* converting the char to int */
-                    int row = int(loc[0] - 65);
-                    /* If valid then place tile otherwise toggle invalid */
-                    if (col >= 0 && col <= BOARD_DIM_ROW && board[row][col] == nullptr)
+                    /* Checks if the location is an number */
+                    if (!intTmp.fail() && intTmp.eof())
                     {
-                        /* Creating a copy of the tile wanted to be placed and adding to board, removing from player and adding points. */
-                        Tile *placed = new Tile(*current_player->get_player_hand()->get_first_inst(input.at(6)));
-                        current_player->get_player_hand()->remove_first_inst(input.at(6));
-                        tilePlace(row, col, placed);
-                        current_player->add_points(placed->getValue());
-                        /* increase the tile placed count */
-                        tiles_placed += 1;
+                        int col;
+                        intTmp >> col;
+                        /* converting the char to int */
+                        int row = int(loc[0] - 65);
+                        /* If valid then place tile otherwise toggle invalid */
+                        if (col >= 0 && col < BOARD_DIM_ROW)
+                        {
+                            if (board[row][col] == nullptr)
+                            {
+                                /* If tilePlace returns false a tile was placed */
+                                if (!tilePlace(row, col, current_player->get_player_hand()->get_first_inst(input.at(6))))
+                                {
+                                    tiles_placed += 1;
+                                }
+                            }
+                            else
+                            {
+                                invalid = true;
+                            }
+                            /* increase the tile placed count */
+                        }
+                        else
+                        {
+
+                            invalid = true;
+                        }
                     }
                     else
                     {
@@ -201,6 +216,7 @@ void GameEngine::user_inputs()
                 }
                 else
                 {
+
                     invalid = true;
                 }
             }
@@ -222,7 +238,7 @@ void GameEngine::user_inputs()
                     tile_bag->add_back(replaced);
                     current_player->get_player_hand()->remove_first_inst(tile);
                     Tile *new_tile = new Tile(*tile_bag->get_tile_at_index(0));
-                    current_player->get_player_hand()->add_back(new_tile);
+                    current_player->draw_tile(new_tile);
                     tile_bag->remove_front();
                     turn_done = true;
                     current_player->reset_passes();
@@ -360,7 +376,7 @@ void GameEngine::draw_hands()
     /* For each player draws untill their hand is full or if tile bag is empty as many as they can */
     for (Player *player : players)
     {
-        for (int i = player->get_player_hand()->getSize(); i < MAX_HAND_SIZE && tile_bag->getSize() > 0; i++)
+        for (int i = player->get_player_hand()->getSize(); i <= MAX_HAND_SIZE && tile_bag->getSize() > 0; i++)
         {
             Tile *tile = new Tile(*tile_bag->get_tile_at_index(0));
             tile_bag->remove_front();
@@ -369,12 +385,151 @@ void GameEngine::draw_hands()
     }
 }
 
-void GameEngine::tilePlace(int row, int col, Tile *tile)
+
+
+bool GameEngine::tilePlace(int row, int col, Tile *tile)
 {
-    
-    board[row][col] = tile;
+    Tile *placed = new Tile(*tile);
+    bool invalid = false;
+    if (isEmpty() == true && row == 7 && col == 7)
+    {
+        board[row][col] = placed;
+    }
+    else if (row == 0 && col == 0) // checks if tile is top-left
+    {
+        if (board[row + 1][col] != nullptr || board[row][col + 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row == 0 && col <= 14) // checks if tile is top row excl. top-left and top-right
+    {
+        if (board[row + 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row == 0 && col == 14) // checks if tile is top-right
+    {
+        if (board[row + 1][col] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row == 14 && col == 0) // checks if tile is bottom-left
+    {
+        if (board[row - 1][col] != nullptr || board[row][col + 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row == 14 && col <= 14) // checks if tile is bottom row excl. top-left and top-right
+    {
+        if (board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row == 14 && col == 14) // checks if tile is bottom-right
+    {
+        if (board[row - 1][col] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (col == 0 && row <= 14) // checks if tile is on left edge
+    {
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (col == 14 && col <= 14) // checks if tile is on right edge
+    {
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+    else if (row <= 14 && col <= 14) // checks if tile is in the middle
+    {
+        if (board[row + 1][col] != nullptr || board[row - 1][col] != nullptr || board[row][col + 1] != nullptr || board[row][col - 1] != nullptr)
+        {
+            board[row][col] = placed;
+        }
+        else
+        {
+            invalid = true;
+        }
+    }
+
+    else
+    {
+        invalid = true;
+    }
+    /* If invalid delete the tile that was meant to be placed otherwise add the points */
+    if (invalid == true)
+    {
+        std::cout << "Invalid Tile Input" << std::endl;
+        delete placed;
+    }
+    else
+    {
+        current_player->get_player_hand()->remove_first_inst(placed->getLetter());
+        current_player->add_points(placed->getValue());
+    }
+    /* Reusing invalid as the return value, if invalid is false tile was placed */
+    return invalid;
 }
 
+bool GameEngine::isEmpty()
+{
+    bool isempty = true;
+    for (int i = 0; i < BOARD_DIM_ROW; i++)
+    {
+        for (int j = 0; j < BOARD_DIM_COL; j++)
+        {
+            if (board[i][j] != nullptr)
+            {
+                isempty = false;
+                return isempty;
+            }
+        }
+    }
+    return isempty;
+}
 void GameEngine::save_Game(std::string filename)
 {
     std::ofstream save_file;
