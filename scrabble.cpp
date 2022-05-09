@@ -269,7 +269,7 @@ void load_game(std::string filename) {
                 int row = letter_to_row(tile_at_pos_string[2]);
                 int col = tile_at_pos_string[3] - '0';
                 
-                game_engine->tilePlace(row, col ,tile);
+                game_engine->tilePlace_load(row, col ,tile);
               // }
             }
           }

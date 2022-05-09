@@ -41,6 +41,7 @@ public:
 
     /* Where the gameplay starts etc. */
     void Engine();
+    void tilePlace_load(int row, int col, Tile *Tile);
 
 
     void get_winner();

@@ -385,6 +385,9 @@ void GameEngine::draw_hands()
     }
 }
 
+void GameEngine::tilePlace_load(int row, int col, Tile *tile) {
+    board[row][col] = tile;
+}
 
 
 bool GameEngine::tilePlace(int row, int col, Tile *tile)
