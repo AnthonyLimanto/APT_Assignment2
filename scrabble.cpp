@@ -1,7 +1,7 @@
 
 
 #include <iostream>
-
+#include <algorithm>
 #include "GameEngine.h"
 
 void print_student_info();
@@ -37,7 +37,8 @@ int main(void)
     }
     else if (choice == '2')
     {
-      std::cout << "Enter the filename from which to load a game" << std::endl;
+      std::cout << std::endl
+                << "Enter the filename from which to load a game" << std::endl;
       std::string filename;
       std::cin >> filename;
       load_game(filename);
@@ -128,6 +129,8 @@ void start_game()
 
 bool upper_case_check(std::string name)
 {
+  name.erase(std::remove(name.begin(), name.end(), '\n'), name.end());
+  name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
   bool ret = true;
   for (char c : name)
   {
@@ -139,174 +142,182 @@ bool upper_case_check(std::string name)
   return ret;
 }
 
-int letter_to_row(char c) {
+int letter_to_row(char c)
+{
   int num;
-  if (c == 'A') {
+  if (c == 'A')
+  {
     num = 0;
   }
-  if (c == 'B') {
+  if (c == 'B')
+  {
     num = 1;
   }
-  if (c == 'C') {
+  if (c == 'C')
+  {
     num = 2;
   }
-  if (c == 'D') {
+  if (c == 'D')
+  {
     num = 3;
   }
-  if (c == 'E') {
+  if (c == 'E')
+  {
     num = 4;
   }
-  if (c == 'F') {
+  if (c == 'F')
+  {
     num = 5;
   }
-  if (c == 'G') {
+  if (c == 'G')
+  {
     num = 6;
   }
-  if (c == 'H') {
+  if (c == 'H')
+  {
     num = 7;
   }
-  if (c == 'I') {
+  if (c == 'I')
+  {
     num = 8;
   }
-  if (c == 'J') {
+  if (c == 'J')
+  {
     num = 9;
   }
-  if (c == 'K') {
+  if (c == 'K')
+  {
     num = 10;
   }
-  if (c == 'L') {
+  if (c == 'L')
+  {
     num = 11;
   }
-  if (c == 'M') {
+  if (c == 'M')
+  {
     num = 12;
   }
-  if (c == 'N') {
+  if (c == 'N')
+  {
     num = 13;
   }
-  if (c == 'O') {
+  if (c == 'O')
+  {
     num = 14;
   }
   return num;
 }
 
-
-void load_game(std::string filename) {
+void load_game(std::string filename)
+{
   std::ifstream save_file_reader;
-    
 
-    save_file_reader.open(filename);
+  save_file_reader.open(filename);
 
-    if (!save_file_reader) {
-        std::cout << "File does not exist";
+  if (!save_file_reader)
+  {
+
+    std::cout << "File does not exist";
+  }
+  else
+  {
+
+    // reads file and fills vector
+    std::vector<std::string> file;
+    std::string line;
+    while (getline(save_file_reader, line))
+    {
+
+      file.push_back(line);
     }
-    else {
+    if (upper_case_check(file[0]))
+    {
+      std::cout << "Got here1" << std::endl;
+      LinkedList *hand = new LinkedList();
 
-      // reads file and fills vector
-        std::vector<std::string> file;
-        std::string line;
-        while (getline(save_file_reader, line)) {
-            file.push_back(line);
-        }
+      std::string tile_string;
+      std::istringstream ss(file[2]);
 
-        if (upper_case_check(file[0])) {
-
-            LinkedList* hand = new LinkedList();
-            
-            std::string tile_string;
-            std::istringstream ss(file[2]);
-
-
-            // hand
-            while (ss >> tile_string) {
-              Letter letter = tile_string[0];
-              Value value = tile_string[2] - '0';
-              Tile* tile = new Tile(letter, value);
-              hand->add_back(tile);
-            }
-            // new player with name, score and hand
-            Player* player1 = new Player(file[0], std::stoi(file[1]), hand);
-            game_engine->addPlayer(player1);
-        }
-
-        if (upper_case_check(file[3])) {
-
-            LinkedList* hand = new LinkedList();
-            
-            
-            std::string tile_string;
-            std::istringstream ss(file[5]);
-
-
-            // hand
-            while (ss >> tile_string) {
-              Letter letter = tile_string[0];
-              Value value = tile_string[2] - '0';
-              Tile* tile = new Tile(letter, value);
-              hand->add_back(tile);
-            }
-
-            Player* player2 = new Player(file[3], std::stoi(file[4]), hand);
-            game_engine->addPlayer(player2);
-        }
-
-        std::string tile_at_pos_string;
-        std::istringstream ss(file[6]);
-
-
-        // loading board IS FIXED but super messy ill clean up later
-        while (ss >> tile_at_pos_string) {
-          
-          if (isupper(tile_at_pos_string[0])) {
-             
-            if (isupper(tile_at_pos_string[2])) {
-              
-              // if(isdigit(tile_at_pos_string[3] - '0')) {
-                // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
-                Letter letter = tile_at_pos_string[0];
-                // Value value = tile_at_pos_string[2] - '0';
-                Tile* tile = new Tile(letter);
-                
-                int row = letter_to_row(tile_at_pos_string[2]);
-                int col = tile_at_pos_string[3] - '0';
-                
-                game_engine->tilePlace_load(row, col ,tile);
-              // }
-            }
-          }
-        }
-
-        LinkedList* bag = new LinkedList();
-
-        std::string bag_tiles;
-        std::istringstream strings(file[7]);
-
-        while (strings >> bag_tiles) {
-            Letter letter = bag_tiles[0];
-            Value value = bag_tiles[2] - '0';
-
-            Tile* tile = new Tile(letter, value);
-            // std::cout << tile->getLetter() << tile->getValue() << std::endl;
-            bag->add_back(tile);
-        }
-
-        game_engine->set_tile_bag(bag);
-
-
-        // curr player
-        
-        
-
-
-        game_engine->set_curr_player(file[8]);
-
-        std::cout << "Scrabble game successfully loaded" << std::endl;
-        game_engine->Engine();
-        
-
-
-
+      // hand
+      while (ss >> tile_string)
+      {
+        Letter letter = tile_string[0];
+        Value value = tile_string[2] - '0';
+        Tile *tile = new Tile(letter, value);
+        hand->add_back(tile);
+      }
+      // new player with name, score and hand
+      Player *player1 = new Player(file[0], std::stoi(file[1]), hand);
+      game_engine->addPlayer(player1);
     }
 
+    if (upper_case_check(file[3]))
+    {
+      std::cout << "Got here2" << std::endl;
+      LinkedList *hand = new LinkedList();
 
+      std::string tile_string;
+      std::istringstream ss(file[5]);
 
+      // hand
+      while (ss >> tile_string)
+      {
+        Letter letter = tile_string[0];
+        Value value = tile_string[2] - '0';
+        Tile *tile = new Tile(letter, value);
+        hand->add_back(tile);
+      }
+
+      Player *player2 = new Player(file[3], std::stoi(file[4]), hand);
+      game_engine->addPlayer(player2);
+    }
+
+    std::string tile_at_pos_string;
+    std::istringstream ss(file[6]);
+
+    // loading board IS FIXED but super messy ill clean up later
+    while (ss >> tile_at_pos_string)
+    {
+
+      if (isupper(tile_at_pos_string[0]))
+      {
+
+        if (isupper(tile_at_pos_string[2]))
+        {
+
+          // if(isdigit(tile_at_pos_string[3] - '0')) {
+          // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+          Letter letter = tile_at_pos_string[0];
+          // Value value = tile_at_pos_string[2] - '0';
+          Tile *tile = new Tile(letter);
+
+          int row = letter_to_row(tile_at_pos_string[2]);
+          int col = tile_at_pos_string[3] - '0';
+
+          game_engine->tilePlace_load(row, col, tile);
+          // }
+        }
+      }
+    }
+
+    LinkedList *bag = new LinkedList();
+
+    std::string bag_tiles;
+    std::istringstream strings(file[7]);
+
+    while (strings >> bag_tiles)
+    {
+      Letter letter = bag_tiles[0];
+      Value value = bag_tiles[2] - '0';
+
+      Tile *tile = new Tile(letter, value);
+      bag->add_back(tile);
+    }
+
+    game_engine->set_tile_bag(bag);
+    game_engine->set_curr_player(file[8]);
+
+    std::cout << "Scrabble game successfully loaded" << std::endl;
+    game_engine->Engine();
+  }
 }

@@ -31,10 +31,9 @@ public:
 
     void addPlayer(std::string name);
     // for loading
-    void addPlayer(Player* player);
+    void addPlayer(Player *player);
     void set_curr_player(std::string name);
-    void set_tile_bag(LinkedList* bag);
-    
+    void set_tile_bag(LinkedList *bag);
 
     void create_tile_bag();
     void draw_hands();
@@ -43,16 +42,17 @@ public:
     void Engine();
     void tilePlace_load(int row, int col, Tile *Tile);
 
-
     void get_winner();
     void user_inputs();
     void print_board();
     bool tilePlace(int row, int col, Tile *Tile);
     bool isEmpty();
+    void change_turn();
     Player *current_player;
 
 private:
     int num_players;
+
     bool exit;
 
     LinkedList *tile_bag;
