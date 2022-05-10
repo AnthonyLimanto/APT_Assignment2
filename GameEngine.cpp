@@ -6,7 +6,7 @@ GameEngine::GameEngine()
     std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
     tile_bag = new LinkedList();
     num_players = 0;
-
+    current_player = nullptr;
     exit = false;
 }
 GameEngine::~GameEngine()
@@ -31,11 +31,14 @@ void GameEngine::Engine()
 {
 
     bool end_check = false;
+    if (current_player == nullptr)
+    {
+        current_player = players[0];
+    }
     /* loops while the tilebag and players have tiles, eof is not parsed in and the current player has not passed twice in a row. */
     while (!end_check && !std::cin.eof() && !exit)
     {
         draw_hands();
-
         /* Checks if the tilebag or playerhands are empty, ends game if both are 0 */
         if ((current_player->get_player_hand()->getSize() == 0 && tile_bag->getSize() == 0))
         {
@@ -53,8 +56,8 @@ void GameEngine::Engine()
             {
                 end_check = true;
             }
+            change_turn();
         }
-        change_turn();
     }
 
     /* Only prints the game over screen if the reason it gets here is end_check, otherwise don't print and leave */
