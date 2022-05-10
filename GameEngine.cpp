@@ -165,6 +165,7 @@ void GameEngine::user_inputs()
     bool invalid = false;
     bool turn_done = false;
     /* Loopos while the turn is not done or EOF is not parsed in */
+    std::cout << std::endl;
     while (!turn_done && !exit)
     {
         /* Resets invalid check at every input so it only triggers invalid for its own iteration */
@@ -173,6 +174,10 @@ void GameEngine::user_inputs()
         std::string input;
         std::cout << "> ";
         std::getline(std::cin, input);
+
+        /* Removes /r and /n from the line for reading in commands from files */
+        input.erase(std::remove(input.begin(), input.end(), '\n'), input.end());
+        input.erase(std::remove(input.begin(), input.end(), '\r'), input.end());
         if (std::cin.eof())
         {
             std::cout << std::endl;
@@ -272,13 +277,13 @@ void GameEngine::user_inputs()
             }
         }
         /* Checks for pass and only allows pass when the player has not started placing tiles */
-        else if (input.substr(0, 4) == "pass" && tiles_placed == 0)
+        else if (input == "pass" && tiles_placed == 0)
         {
             /* Adds to pass counter and passes turn */
             current_player->add_pass();
             turn_done = true;
         }
-        else if (input.substr(0, 10) == "place Done")
+        else if (input == "place Done")
         {
             /* Triggers the turn to be done and resets pass counter*/
             current_player->reset_passes();
@@ -293,7 +298,7 @@ void GameEngine::user_inputs()
             std::cout << "Got here " << std::endl;
             save_Game(filename);
         }
-        else if (input.substr(0, 4) == "quit" || std::cin.eof())
+        else if (input == "quit" || std::cin.eof())
         {
             /* Triggers the exit for the whole game */
             exit = true;
