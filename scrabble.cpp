@@ -232,7 +232,6 @@ void load_game(std::string filename)
     }
     if (upper_case_check(file[0]))
     {
-      std::cout << "Got here1" << std::endl;
       LinkedList *hand = new LinkedList();
 
       std::string tile_string;
@@ -253,7 +252,6 @@ void load_game(std::string filename)
 
     if (upper_case_check(file[3]))
     {
-      std::cout << "Got here2" << std::endl;
       LinkedList *hand = new LinkedList();
 
       std::string tile_string;
