@@ -1,6 +1,6 @@
 
 #include "GameEngine.h"
-
+#include <algorithm>
 GameEngine::GameEngine()
 {
     std::vector<std::vector<Tile *>> board{BOARD_DIM_ROW, std::vector<Tile *>(BOARD_DIM_COL, nullptr)};
@@ -29,7 +29,7 @@ GameEngine::~GameEngine()
 
 void GameEngine::Engine()
 {
-
+    std::cin.ignore(10, '\n');
     bool end_check = false;
     if (current_player == nullptr)
     {
@@ -173,17 +173,11 @@ void GameEngine::user_inputs()
         std::string input;
         std::cout << "> ";
         std::getline(std::cin, input);
-
-        if (input == "")
-        {
-            std::getline(std::cin, input);
-        }
         if (std::cin.eof())
         {
             std::cout << std::endl;
             exit = true;
         }
-
         /* Checks if the input is a valid command */
         if (input.substr(0, 5) == "place" && input.substr(8, 2) == "at" && input.length() >= 13)
         {
@@ -204,6 +198,9 @@ void GameEngine::user_inputs()
                             intTmp << loc.substr(1, 2);
                             intTmp >> col;
                             intTmp.clear();
+                        }
+                        else if (loc[i] == '\n' || loc[i] == '\r')
+                        {
                         }
                         else
                         {
@@ -293,6 +290,7 @@ void GameEngine::user_inputs()
             /* Saves the game then exits */
 
             std::string filename = input.substr(5) + ".save";
+            std::cout << "Got here " << std::endl;
             save_Game(filename);
         }
         else if (input.substr(0, 4) == "quit" || std::cin.eof())

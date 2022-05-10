@@ -6,7 +6,7 @@
 
 void print_student_info();
 void start_game();
-void load_game(std::string filename);
+bool load_game(std::string filename);
 bool upper_case_check(std::string name);
 int letter_to_row(char c);
 GameEngine *game_engine;
@@ -41,9 +41,10 @@ int main(void)
                 << "Enter the filename from which to load a game" << std::endl;
       std::string filename;
       std::cin >> filename;
-      load_game(filename);
-
-      exit = true;
+      if (!load_game(filename))
+      {
+        exit = true;
+      }
     }
     else if (choice == '3')
     {
@@ -129,8 +130,7 @@ void start_game()
 
 bool upper_case_check(std::string name)
 {
-  name.erase(std::remove(name.begin(), name.end(), '\n'), name.end());
-  name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
+
   bool ret = true;
   for (char c : name)
   {
@@ -208,16 +208,17 @@ int letter_to_row(char c)
   return num;
 }
 
-void load_game(std::string filename)
+bool load_game(std::string filename)
 {
+  bool invalid = false;
   std::ifstream save_file_reader;
 
   save_file_reader.open(filename);
 
   if (!save_file_reader)
   {
-
-    std::cout << "File does not exist";
+    std::cout << "File does not exist" << std::endl;
+    invalid = true;
   }
   else
   {
@@ -230,6 +231,9 @@ void load_game(std::string filename)
 
       file.push_back(line);
     }
+    /* Removes newlines and carriage returns if present */
+    file[0].erase(std::remove(file[0].begin(), file[0].end(), '\n'), file[0].end());
+    file[0].erase(std::remove(file[0].begin(), file[0].end(), '\r'), file[0].end());
     if (upper_case_check(file[0]))
     {
       LinkedList *hand = new LinkedList();
@@ -249,7 +253,13 @@ void load_game(std::string filename)
       Player *player1 = new Player(file[0], std::stoi(file[1]), hand);
       game_engine->addPlayer(player1);
     }
-
+    else
+    {
+      invalid = true;
+    }
+    /* Removes newlines and carriage returns if present */
+    file[3].erase(std::remove(file[3].begin(), file[3].end(), '\n'), file[3].end());
+    file[3].erase(std::remove(file[3].begin(), file[3].end(), '\r'), file[3].end());
     if (upper_case_check(file[3]))
     {
       LinkedList *hand = new LinkedList();
@@ -269,12 +279,16 @@ void load_game(std::string filename)
       Player *player2 = new Player(file[3], std::stoi(file[4]), hand);
       game_engine->addPlayer(player2);
     }
+    else
+    {
+      invalid = true;
+    }
 
     std::string tile_at_pos_string;
     std::istringstream ss(file[6]);
 
     // loading board IS FIXED but super messy ill clean up later
-    while (ss >> tile_at_pos_string)
+    while (ss >> tile_at_pos_string && !invalid)
     {
 
       if (isupper(tile_at_pos_string[0]))
@@ -297,25 +311,32 @@ void load_game(std::string filename)
         }
       }
     }
-
-    LinkedList *bag = new LinkedList();
-
-    std::string bag_tiles;
-    std::istringstream strings(file[7]);
-
-    while (strings >> bag_tiles)
+    if (!invalid)
     {
-      Letter letter = bag_tiles[0];
-      Value value = bag_tiles[2] - '0';
+      LinkedList *bag = new LinkedList();
+      std::string bag_tiles;
+      std::istringstream strings(file[7]);
 
-      Tile *tile = new Tile(letter, value);
-      bag->add_back(tile);
+      while (strings >> bag_tiles)
+      {
+        Letter letter = bag_tiles[0];
+        Value value = bag_tiles[2] - '0';
+
+        Tile *tile = new Tile(letter, value);
+        bag->add_back(tile);
+      }
+
+      game_engine->set_tile_bag(bag);
+      game_engine->set_curr_player(file[8]);
+
+      std::cout << "Scrabble game successfully loaded" << std::endl;
+      game_engine->Engine();
     }
-
-    game_engine->set_tile_bag(bag);
-    game_engine->set_curr_player(file[8]);
-
-    std::cout << "Scrabble game successfully loaded" << std::endl;
-    game_engine->Engine();
+    else
+    {
+      std::cout << "Invalid Input" << std::endl;
+    }
+    save_file_reader.close();
   }
+  return invalid;
 }

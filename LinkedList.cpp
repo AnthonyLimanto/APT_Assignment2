@@ -9,6 +9,15 @@ LinkedList::LinkedList()
 
    // TODO
 }
+LinkedList::LinkedList(LinkedList &other)
+{
+   head = nullptr;
+   for (int i = 0; i < other.length; ++i)
+   {
+      Tile *tile = new Tile(*other.get_tile_at_index(i));
+      add_back(tile);
+   }
+}
 
 LinkedList::~LinkedList()
 {
