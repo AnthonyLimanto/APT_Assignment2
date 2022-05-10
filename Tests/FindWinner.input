@@ -1,0 +1,121 @@
+1
+A
+B
+place E at H7
+place N at G7
+place Y at F7
+place T at E7
+place T at D7
+place R at C7
+place F at B7
+place Done
+place E at I7
+place U at J7
+place R at K7
+place N at L7
+place O at M7
+place N at N7
+palce R at O7
+place R at O7
+place Done
+place M at A7
+place G at A6
+place N at A5
+place T at A4
+place K at A3
+place E at A2
+place A at A1
+place I at A0
+place Done
+place B at at B8
+place B at B8
+place V at B9
+place S at B10
+place J at B11
+place E at B12
+place P at B13
+place D at O1
+palce D at O14
+place D at B14
+place Done
+place S at B 6
+place S at B6
+place A at B5
+place A at B4
+place L at B3
+place A at B2
+place F at B1
+place I at B0
+place Done
+save saveFindWinner_0
+place O at O6
+place A at O6
+place A at O5
+palce E at O4
+place E at O4
+place A at O3
+place S at O2
+place D at O1
+place N at O0
+place Done
+place I at O8
+place Z at O9
+place I at O10
+place A at O11
+place I at O12
+place O at O13
+place W at O14
+place Done
+place Q at C14
+place H at D13
+place H at D14              
+place C at E14
+place E at F14 
+place G at G14
+place E at H14
+place U at I14 
+place Done
+place U at I8
+place A at I9
+place I at I10
+place R at I11
+place X at I12
+place R at I13
+place Done
+place G at N0
+place I at N1
+place B at N2
+place D at N3
+place M at N4
+place N at N5
+place U at N6
+place Done
+save saveFindWinner_1
+place E at O10
+place O at O11
+place S at O12
+place O at O13
+place T at O14
+place C at N8
+place R at N9
+place E at N10
+place Done
+place V at K9
+place V at K8
+place O at K9
+place D at K10
+place Z at K11
+place P at K12
+place A at K13
+place L at K14
+place Y at I10
+place Done
+place T at M8
+place O at M9
+place E at M10
+place I at M11
+place T at M12
+place L at M13
+place E at M14
+place E at I11
+place Done
