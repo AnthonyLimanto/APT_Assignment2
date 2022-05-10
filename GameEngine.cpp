@@ -295,7 +295,6 @@ void GameEngine::user_inputs()
             /* Saves the game then exits */
 
             std::string filename = input.substr(5) + ".save";
-            std::cout << "Got here " << std::endl;
             save_Game(filename);
         }
         else if (input == "quit" || std::cin.eof())

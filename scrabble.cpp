@@ -38,7 +38,8 @@ int main(void)
     else if (choice == '2')
     {
       std::cout << std::endl
-                << "Enter the filename from which to load a game" << std::endl;
+                << "Enter the filename from which to load a game" << std::endl
+                << "> " << std::endl;
       std::string filename;
       std::cin >> filename;
       if (!load_game(filename))
