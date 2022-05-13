@@ -39,7 +39,7 @@ int main(void)
     {
       std::cout << std::endl
                 << "Enter the filename from which to load a game" << std::endl
-                << "> " << std::endl;
+                << "> ";
       std::string filename;
       std::cin >> filename;
       if (!load_game(filename))
@@ -328,6 +328,10 @@ bool load_game(std::string filename)
       }
 
       game_engine->set_tile_bag(bag);
+
+      /* Removes newlines and carriage returns if present */
+      file[8].erase(std::remove(file[8].begin(), file[8].end(), '\n'), file[8].end());
+      file[8].erase(std::remove(file[8].begin(), file[8].end(), '\r'), file[8].end());
       game_engine->set_curr_player(file[8]);
 
       std::cout << "Scrabble game successfully loaded" << std::endl;
