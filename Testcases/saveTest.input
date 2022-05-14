@@ -1,0 +1,9 @@
+2   
+Savefiles/starterSave.save
+place E at H7
+place T at H6
+place Done
+place A at H8
+place Done
+save Savefiles/saveTestFinish
+quit
