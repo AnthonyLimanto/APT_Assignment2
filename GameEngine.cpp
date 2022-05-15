@@ -52,7 +52,7 @@ void GameEngine::Engine()
             user_inputs();
 
             /* Checks if the player has passed twice in a row and ends game if needed */
-            if (current_player->get_player_passes() > 1)
+            if (current_player->get_player_passes() > 1 && tile_bag->getSize() == 0)
             {
                 end_check = true;
             }
