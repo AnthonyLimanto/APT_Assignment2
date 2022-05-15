@@ -36,7 +36,7 @@ void GameEngine::Engine()
         current_player = players[0];
     }
     /* loops while the tilebag and players have tiles, eof is not parsed in and the current player has not passed twice in a row. */
-    while (!end_check && !std::cin.eof() && !exit)
+    while (!end_check && !exit)
     {
         draw_hands();
         /* Checks if the tilebag or playerhands are empty, ends game if both are 0 */
