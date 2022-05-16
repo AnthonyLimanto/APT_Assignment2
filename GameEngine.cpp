@@ -650,7 +650,7 @@ void GameEngine::helpFunction() //for help function
                << " 5. A tile may not be shifted or replaced after it has been played and scored." << std::endl
                << " 6. If a player places all seven tiles in their hand in one turn, they will gain an extra 50 points." << std::endl
                << " 7. The game ends if:" << std::endl
-               << "      - A player passes their turn two times in a row. " << std::endl
+               << "      - There are no more tiles in the tile bag and a player passes their turn two times in a row. " << std::endl
                << "      - There are no more tiles in the tile bag and a player uses all of their tiles. " << std::endl
                << std::endl
                << "How to Play:" << std::endl
