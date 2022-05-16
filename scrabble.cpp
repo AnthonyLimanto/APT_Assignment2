@@ -8,7 +8,8 @@ void print_student_info();
 void start_game();
 bool load_game(std::string filename);
 bool upper_case_check(std::string name);
-int letter_to_row(char c);
+int letter_to_row(char c); //for 3-4 player
+bool isValidPlayers(char players); //for 3-4 players
 GameEngine *game_engine;
 int main(void)
 {
@@ -20,7 +21,8 @@ int main(void)
             << "1. New Game" << std::endl
             << "2. Load Game" << std::endl
             << "3. Credits (Show Student Information)" << std::endl
-            << "4. Quit" << std::endl;
+            << "4. Quit" << std::endl
+            << "5. Help" << std::endl;
 
   bool exit = false;
   char choice = 0;
@@ -54,6 +56,10 @@ int main(void)
     else if (choice == '4' || std::cin.eof())
     {
       exit = true;
+    }
+    else if (choice == '5')
+    {
+      game_engine->helpFunction();
     }
     else
     {
@@ -92,9 +98,28 @@ void start_game()
 {
   bool exit = false;
   std::string player_name;
-  int player_count = 2;
+  int player_count;
   bool is_upper = false;
+  bool valid_players = false; //for 3-4 players
+  char c_player_count; //for 3-4 players
   std::cout << "Starting a New Game" << std::endl;
+
+  while (!valid_players) //for 3-4 players
+  {
+    std::cout << "Please Enter Player Amount (2-4):" << std::endl
+              << "> ";
+    
+    std::cin >> c_player_count;
+    std::cout << std::endl;
+
+    player_count = c_player_count - '0';
+    valid_players = isValidPlayers(c_player_count);
+
+    if (!valid_players)
+    {
+      std::cout << "Invalid Input" << std::endl;
+    }
+  }
 
   for (int i = 0; i < player_count && !std::cin.eof(); i++)
   {
@@ -139,6 +164,16 @@ bool upper_case_check(std::string name)
     {
       ret = false;
     }
+  }
+  return ret;
+}
+
+bool isValidPlayers(char players) //for 3-4 player 
+{
+  bool ret = false;
+  if (players == '2' || players == '3' || players == '4')
+  {
+    ret = true;
   }
   return ret;
 }
@@ -285,63 +320,246 @@ bool load_game(std::string filename)
       invalid = true;
     }
 
-    std::string tile_at_pos_string;
-    std::istringstream ss(file[6]);
-
-    // loading board IS FIXED but super messy ill clean up later
-    while (ss >> tile_at_pos_string && !invalid)
+    if (file.size() >= 12) //for loading 3 players
     {
+      file[6].erase(std::remove(file[6].begin(), file[6].end(), '\n'), file[6].end());
+      file[6].erase(std::remove(file[6].begin(), file[6].end(), '\r'), file[6].end());
+      if (upper_case_check(file[6]))
+      {
+        LinkedList *hand = new LinkedList();
 
-      if (isupper(tile_at_pos_string[0]))
+        std::string tile_string;
+        std::istringstream ss(file[8]);
+
+        // hand
+        while (ss >> tile_string)
+        {
+          Letter letter = tile_string[0];
+          Value value = tile_string[2] - '0';
+          Tile *tile = new Tile(letter, value);
+          hand->add_back(tile);
+        }
+        // new player with name, score and hand
+        Player *player3 = new Player(file[6], std::stoi(file[7]), hand);
+        game_engine->addPlayer(player3);
+      }
+      else
+      {
+        invalid = true;
+      }
+    }
+
+    if (file.size() == 15) //for 4 players
+    {
+      file[9].erase(std::remove(file[9].begin(), file[9].end(), '\n'), file[9].end());
+      file[9].erase(std::remove(file[9].begin(), file[9].end(), '\r'), file[9].end());
+      if (upper_case_check(file[9]))
+      {
+        LinkedList *hand = new LinkedList();
+
+        std::string tile_string;
+        std::istringstream ss(file[11]);
+
+        // hand
+        while (ss >> tile_string)
+        {
+          Letter letter = tile_string[0];
+          Value value = tile_string[2] - '0';
+          Tile *tile = new Tile(letter, value);
+          hand->add_back(tile);
+        }
+        // new player with name, score and hand
+        Player *player4 = new Player(file[9], std::stoi(file[10]), hand);
+        game_engine->addPlayer(player4);
+      }
+      else
+      {
+        invalid = true;
+      }
+    } 
+
+    std::string tile_at_pos_string;
+    
+    if (file.size() == 9)
+    {
+          std::istringstream ss(file[6]);
+
+      // loading board IS FIXED but super messy ill clean up later
+      while (ss >> tile_at_pos_string && !invalid)
       {
 
-        if (isupper(tile_at_pos_string[2]))
+        if (isupper(tile_at_pos_string[0]))
         {
 
-          // if(isdigit(tile_at_pos_string[3] - '0')) {
-          // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
-          Letter letter = tile_at_pos_string[0];
-          // Value value = tile_at_pos_string[2] - '0';
-          Tile *tile = new Tile(letter);
+          if (isupper(tile_at_pos_string[2]))
+          {
 
-          int row = letter_to_row(tile_at_pos_string[2]);
-          int col = tile_at_pos_string[3] - '0';
+            // if(isdigit(tile_at_pos_string[3] - '0')) {
+            // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+            Letter letter = tile_at_pos_string[0];
+            // Value value = tile_at_pos_string[2] - '0';
+            Tile *tile = new Tile(letter);
 
-          game_engine->tilePlace_load(row, col, tile);
-          // }
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = tile_at_pos_string[3] - '0';
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
         }
       }
-    }
-    if (!invalid)
-    {
-      LinkedList *bag = new LinkedList();
-      std::string bag_tiles;
-      std::istringstream strings(file[7]);
-
-      while (strings >> bag_tiles)
+      if (!invalid)
       {
-        Letter letter = bag_tiles[0];
-        Value value = bag_tiles[2] - '0';
+        LinkedList *bag = new LinkedList();
+        std::string bag_tiles;
+        std::istringstream strings(file[7]);
 
-        Tile *tile = new Tile(letter, value);
-        bag->add_back(tile);
+        while (strings >> bag_tiles)
+        {
+          Letter letter = bag_tiles[0];
+          Value value = bag_tiles[2] - '0';
+
+          Tile *tile = new Tile(letter, value);
+          bag->add_back(tile);
+        }
+
+        game_engine->set_tile_bag(bag);
+
+        /* Removes newlines and carriage returns if present */
+        file[8].erase(std::remove(file[8].begin(), file[8].end(), '\n'), file[8].end());
+        file[8].erase(std::remove(file[8].begin(), file[8].end(), '\r'), file[8].end());
+        game_engine->set_curr_player(file[8]);
+
+        std::cout << "Scrabble game successfully loaded" << std::endl;
+        game_engine->Engine();
       }
-
-      game_engine->set_tile_bag(bag);
-
-      /* Removes newlines and carriage returns if present */
-      file[8].erase(std::remove(file[8].begin(), file[8].end(), '\n'), file[8].end());
-      file[8].erase(std::remove(file[8].begin(), file[8].end(), '\r'), file[8].end());
-      game_engine->set_curr_player(file[8]);
-
-      std::cout << "Scrabble game successfully loaded" << std::endl;
-      game_engine->Engine();
+      else
+      {
+        std::cout << "Invalid Input" << std::endl;
+      }
+      save_file_reader.close();
     }
-    else
+
+    if (file.size() == 12) //for 3 players
     {
-      std::cout << "Invalid Input" << std::endl;
+          std::istringstream ss(file[9]);
+
+      // loading board IS FIXED but super messy ill clean up later
+      while (ss >> tile_at_pos_string && !invalid)
+      {
+
+        if (isupper(tile_at_pos_string[0]))
+        {
+
+          if (isupper(tile_at_pos_string[2]))
+          {
+
+            // if(isdigit(tile_at_pos_string[3] - '0')) {
+            // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+            Letter letter = tile_at_pos_string[0];
+            // Value value = tile_at_pos_string[2] - '0';
+            Tile *tile = new Tile(letter);
+
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = tile_at_pos_string[3] - '0';
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
+        }
+      }
+      if (!invalid)
+      {
+        LinkedList *bag = new LinkedList();
+        std::string bag_tiles;
+        std::istringstream strings(file[10]);
+
+        while (strings >> bag_tiles)
+        {
+          Letter letter = bag_tiles[0];
+          Value value = bag_tiles[2] - '0';
+
+          Tile *tile = new Tile(letter, value);
+          bag->add_back(tile);
+        }
+
+        game_engine->set_tile_bag(bag);
+
+        /* Removes newlines and carriage returns if present */
+        file[11].erase(std::remove(file[11].begin(), file[11].end(), '\n'), file[11].end());
+        file[11].erase(std::remove(file[11].begin(), file[11].end(), '\r'), file[11].end());
+        game_engine->set_curr_player(file[11]);
+
+        std::cout << "Scrabble game successfully loaded" << std::endl;
+        game_engine->Engine();
+      }
+      else
+      {
+        std::cout << "Invalid Input" << std::endl;
+      }
+      save_file_reader.close();
     }
-    save_file_reader.close();
+
+    if (file.size() == 15) //for 3 players
+    {
+          std::istringstream ss(file[12]);
+
+      // loading board IS FIXED but super messy ill clean up later
+      while (ss >> tile_at_pos_string && !invalid)
+      {
+
+        if (isupper(tile_at_pos_string[0]))
+        {
+
+          if (isupper(tile_at_pos_string[2]))
+          {
+
+            // if(isdigit(tile_at_pos_string[3] - '0')) {
+            // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+            Letter letter = tile_at_pos_string[0];
+            // Value value = tile_at_pos_string[2] - '0';
+            Tile *tile = new Tile(letter);
+
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = tile_at_pos_string[3] - '0';
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
+        }
+      }
+      if (!invalid)
+      {
+        LinkedList *bag = new LinkedList();
+        std::string bag_tiles;
+        std::istringstream strings(file[13]);
+
+        while (strings >> bag_tiles)
+        {
+          Letter letter = bag_tiles[0];
+          Value value = bag_tiles[2] - '0';
+
+          Tile *tile = new Tile(letter, value);
+          bag->add_back(tile);
+        }
+
+        game_engine->set_tile_bag(bag);
+
+        /* Removes newlines and carriage returns if present */
+        file[11].erase(std::remove(file[14].begin(), file[14].end(), '\n'), file[14].end());
+        file[11].erase(std::remove(file[14].begin(), file[14].end(), '\r'), file[14].end());
+        game_engine->set_curr_player(file[14]);
+
+        std::cout << "Scrabble game successfully loaded" << std::endl;
+        game_engine->Engine();
+      }
+      else
+      {
+        std::cout << "Invalid Input" << std::endl;
+      }
+      save_file_reader.close();
+    }
+
   }
   return invalid;
 }

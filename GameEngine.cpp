@@ -302,6 +302,10 @@ void GameEngine::user_inputs()
             /* Triggers the exit for the whole game */
             exit = true;
         }
+        else if (input == "help")
+        {
+            GameEngine::helpFunction();
+        }
         else
         {
             invalid = true;
@@ -632,4 +636,34 @@ void GameEngine::set_tile_bag(LinkedList *bag)
 {
     delete tile_bag;
     this->tile_bag = bag;
+}
+
+void GameEngine::helpFunction() //for help function
+{
+    std::cout << "HELP" << std::endl
+               << "----" << std::endl
+               << "Rules:" << std::endl
+               << " 1. The first tile must be placed at position H7 (the center)." << std::endl
+               << " 2. A player may only replace one tile at a time." << std::endl
+               << " 3. A player is able to pass a turn, however, doing so twice in a row will result in a loss." << std::endl
+               << " 4. A player must add tiles adjacent to existing tiles in order to create a word." << std::endl
+               << " 5. A tile may not be shifted or replaced after it has been played and scored." << std::endl
+               << " 6. If a player places all seven tiles in their hand in one turn, they will gain an extra 50 points." << std::endl
+               << " 7. The game ends if:" << std::endl
+               << "      - A player passes their turn two times in a row. " << std::endl
+               << "      - There are no more tiles in the tile bag and a player uses all of their tiles. " << std::endl
+               << std::endl
+               << "How to Play:" << std::endl
+               << "Main Menu" << std::endl
+               << " - enter the number corresponding to the action you want to perform." << std::endl
+               << " - when loading game, type the save file name when prompted." << std::endl
+               << " " << std::endl
+               << "Gameplay" << std::endl
+               << " - type 'place [tile] at [position]' (replacing [tile] with a tile in your hand and [position] with a valid position) in order to \n   place a tile on the board." << std::endl
+               << " - type 'place Done' when you are finished placing tiles. This will end your turn." << std::endl
+               << " - type 'replace [tile]' (replacing [tile] with a tile in your hand) in order to replace the tile with another in the tile bag. \n   This will end your turn." << std::endl
+               << " - type 'pass' in order to skip your turn." << std::endl
+               << " - type 'save [saveFile]' (replacing [saveFile] with your chosen save file name) in order to save the progress of the game and quit." << std::endl
+               << " - type 'quit' in order quit the game." << std::endl
+               << "" <<  std::endl;
 }

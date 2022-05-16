@@ -17,7 +17,7 @@ Player::Player(Player &other)
     hand = new LinkedList(*other.hand);
     this->name = other.name;
     this->score = other.score;
-    this->pass_count = other.score;
+    this->pass_count = other.pass_count;
 }
 Player::~Player()
 {
@@ -74,7 +74,7 @@ std::string Player::get_player_name()
 
 int Player::get_player_passes()
 {
-    return pass_count;
+    return this->pass_count;
 }
 
 int Player::get_player_score()
