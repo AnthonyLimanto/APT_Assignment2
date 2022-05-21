@@ -626,6 +626,14 @@ void GameEngine::set_curr_player(std::string name)
     {
         current_player = players[1];
     }
+    else if (players[2]->get_player_name() == name)
+    {
+        current_player = players[2];
+    }
+    else if (players[3]->get_player_name() == name)
+    {
+        current_player = players[3];
+    }
     else
     {
         std::cout << "Player " << name << " doesn't exist";
