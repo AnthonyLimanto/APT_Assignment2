@@ -68,18 +68,36 @@ void GameEngine::Engine()
 }
 void GameEngine::change_turn()
 {
-    int index = 0;
-    for (unsigned int i = 0; i < players.size(); i++)
+    if (current_player->get_player_name() == players[0]->get_player_name())
     {
-        if (current_player->get_player_name() == players[i]->get_player_name())
+        current_player = players[1];
+    } 
+    else if (current_player->get_player_name() == players[1]->get_player_name())
+    {
+        if (num_players > 2)
         {
+            current_player = players[2];
         }
         else
         {
-            index = i;
+            current_player = players[0];
         }
     }
-    current_player = players[index];
+    else if (current_player->get_player_name() == players[2]->get_player_name())
+    {
+        if (num_players > 3)
+        {
+            current_player = players[3];
+        }
+        else
+        {
+            current_player = players[0];
+        }
+    } 
+    else if (current_player->get_player_name() == players[3]->get_player_name())
+    {
+        current_player = players[0];
+    } 
 }
 void GameEngine::addPlayer(std::string name)
 {

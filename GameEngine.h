@@ -53,7 +53,6 @@ public:
 
 private:
     int num_players;
-
     bool exit;
 
     LinkedList *tile_bag;
