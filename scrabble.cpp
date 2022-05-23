@@ -307,8 +307,17 @@ bool load_game(std::string filename)
           int row = letter_to_row(tile_at_pos_string[2]);
           int col = tile_at_pos_string[3] - '0';
 
+<<<<<<< Updated upstream
           game_engine->tilePlace_load(row, col, tile);
           // }
+=======
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = stoi(tile_at_pos_string.substr(3,4));
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
+>>>>>>> Stashed changes
         }
       }
     }
@@ -323,8 +332,30 @@ bool load_game(std::string filename)
         Letter letter = bag_tiles[0];
         Value value = bag_tiles[2] - '0';
 
+<<<<<<< Updated upstream
         Tile *tile = new Tile(letter, value);
         bag->add_back(tile);
+=======
+        if (isupper(tile_at_pos_string[0]))
+        {
+
+          if (isupper(tile_at_pos_string[2]))
+          {
+
+            // if(isdigit(tile_at_pos_string[3] - '0')) {
+            // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+            Letter letter = tile_at_pos_string[0];
+            // Value value = tile_at_pos_string[2] - '0';
+            Tile *tile = new Tile(letter);
+
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = stoi(tile_at_pos_string.substr(3,4));
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
+        }
+>>>>>>> Stashed changes
       }
 
       game_engine->set_tile_bag(bag);
@@ -339,7 +370,66 @@ bool load_game(std::string filename)
     }
     else
     {
+<<<<<<< Updated upstream
       std::cout << "Invalid Input" << std::endl;
+=======
+          std::istringstream ss(file[12]);
+
+      // loading board IS FIXED but super messy ill clean up later
+      while (ss >> tile_at_pos_string && !invalid)
+      {
+
+        if (isupper(tile_at_pos_string[0]))
+        {
+
+          if (isupper(tile_at_pos_string[2]))
+          {
+
+            // if(isdigit(tile_at_pos_string[3] - '0')) {
+            // std::cout << "here4" << tile_at_pos_string[3] << std::endl;
+            Letter letter = tile_at_pos_string[0];
+            // Value value = tile_at_pos_string[2] - '0';
+            Tile *tile = new Tile(letter);
+
+            int row = letter_to_row(tile_at_pos_string[2]);
+            int col = stoi(tile_at_pos_string.substr(3,4));
+
+            game_engine->tilePlace_load(row, col, tile);
+            // }
+          }
+        }
+      }
+      if (!invalid)
+      {
+        LinkedList *bag = new LinkedList();
+        std::string bag_tiles;
+        std::istringstream strings(file[13]);
+
+        while (strings >> bag_tiles)
+        {
+          Letter letter = bag_tiles[0];
+          Value value = bag_tiles[2] - '0';
+
+          Tile *tile = new Tile(letter, value);
+          bag->add_back(tile);
+        }
+
+        game_engine->set_tile_bag(bag);
+
+        /* Removes newlines and carriage returns if present */
+        file[11].erase(std::remove(file[14].begin(), file[14].end(), '\n'), file[14].end());
+        file[11].erase(std::remove(file[14].begin(), file[14].end(), '\r'), file[14].end());
+        game_engine->set_curr_player(file[14]);
+
+        std::cout << "Scrabble game successfully loaded" << std::endl;
+        game_engine->Engine();
+      }
+      else
+      {
+        std::cout << "Invalid Input" << std::endl;
+      }
+      save_file_reader.close();
+>>>>>>> Stashed changes
     }
     save_file_reader.close();
   }
