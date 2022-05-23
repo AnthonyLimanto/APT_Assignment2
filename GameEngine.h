@@ -48,6 +48,7 @@ public:
     bool tilePlace(int row, int col, Tile *Tile);
     bool isEmpty();
     void change_turn();
+    void helpFunction();
     Player *current_player;
 
 private:
