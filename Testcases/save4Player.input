@@ -1,21 +1,3 @@
-1
-4
-A
-B
-C
-D
-place S at H7
-place A at H8
-place E at H8
-place E at H9
-place Done
-place P at H10
-place Done
-place O at G10
-place P at F10
-place E at I10
-place Done
-place E at I10
-place Done
-save test4Player
+2
+test4Player.save
 quit

@@ -6,15 +6,18 @@ Menu
 2. Load Game
 3. Credits (Show Student Information)
 4. Quit
+5. Help
 
-> 
+> 2
+
 Enter the filename from which to load a game
-> 
+> test3Player.save
 Scrabble game successfully loaded
 
 A, it's your turn!
-Score for A: 0
-Score for B: 0
+Score for A: 3
+Score for B: 2
+Score for C: 4
     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14
   -------------------------------------------------------------
 A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
@@ -24,45 +27,42 @@ D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-H |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   | D | A | R | T |   |   |   |   |   |
+I |   |   |   |   |   |   |   | P |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   | E |   |   |   |   |   |   |   |
 K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 Your hand is 
-S-1, R-1, E-1, R-1, T-1, D-2, X-8, O-1, 
+L-1, Y-4, E-1, I-1, I-1, S-1, A-1, E-1, 
 
-> > > 
-B, it's your turn!
-Score for A: 2
-Score for B: 0
-    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14
-  -------------------------------------------------------------
-A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-H |   |   |   |   |   |   | T | E |   |   |   |   |   |   |   |
-I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-Your hand is 
-I-1, A-1, S-1, E-1, U-1, W-4, O-1, I-1, 
+> quit
 
-> > 
+Goodbye!
+cesar@TABLET-OVTU7AQ6:/mnt/c/Users/Asian/OneDrive/Pictures/Documents/GitHub/APT_Assignment2$ ./scrabble
+Welcome To Scrabble!
+--------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+5. Help
+
+> 2
+
+Enter the filename from which to load a game
+> test4Player.save
+Scrabble game successfully loaded
+
 A, it's your turn!
-Score for A: 2
-Score for B: 1
+Score for A: 3
+Score for B: 3
+Score for C: 4
+Score for D: 1
     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14
   -------------------------------------------------------------
 A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
@@ -70,10 +70,10 @@ B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-H |   |   |   |   |   |   | T | E | A |   |   |   |   |   |   |
-I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   | P |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   | O |   |   |   |   |
+H |   |   |   |   |   |   |   | S | E | E | P |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   | E |   |   |   |   |
 J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
@@ -81,8 +81,8 @@ M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 Your hand is 
-S-1, R-1, R-1, D-2, X-8, O-1, R-1, E-1, 
+I-1, V-4, E-1, H-4, Y-4, U-1, U-1, M-3, 
 
-> > 
+> quit
 
 Goodbye!
