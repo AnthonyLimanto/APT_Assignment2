@@ -1,0 +1,57 @@
+Welcome To Scrabble!
+--------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+5. Help
+
+> 1
+Starting a New Game
+Please Enter Player Amount (2-4)
+> 4
+
+Enter a name for player 1 (uppercase characters only)
+ > A
+
+Enter a name for player 2 (uppercase characters only)
+ > B
+
+Enter a name for player 3 (uppercase characters only)
+ > C
+
+Enter a name for player 4 (uppercase characters only)
+ > D
+
+Let's Play!
+
+A, it's your turn!
+Score for A: 0
+Score for B: 0
+Score for C: 0
+Score for D: 0
+    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14
+  -------------------------------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+Your hand is 
+E-1, G-2, T-1, R-1, E-1, A-1, I-1, 
+
+> quit
+
+Goodbye!

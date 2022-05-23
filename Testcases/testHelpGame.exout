@@ -1,0 +1,78 @@
+Welcome To Scrabble!
+--------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+5. Help
+
+> 1
+Starting a New Game
+Please Enter Player Amount (2-4)
+> 2
+
+Enter a name for player 1 (uppercase characters only)
+ > A
+
+Enter a name for player 2 (uppercase characters only)
+ > B
+
+Let's Play!
+
+A, it's your turn!
+Score for A: 0
+Score for B: 0
+    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14
+  -------------------------------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+Your hand is 
+A-1, O-1, E-1, F-4, Z-10, I-1, I-1, 
+
+> help
+HELP
+----
+Rules:
+ 1. The first tile must be placed at position H7 (the center).
+ 2. A player may only replace one tile at a time.
+ 3. A player is able to pass a turn, however, doing so twice in a row will result in a loss.
+ 4. A player must add tiles adjacent to existing tiles in order to create a word.
+ 5. A tile may not be shifted or replaced after it has been played and scored.
+ 6. If a player places all seven tiles in their hand in one turn, they will gain an extra 50 points.
+ 7. The game ends if:
+      - There are no more tiles in the tile bag and a player passes their turn two times in a row. 
+      - There are no more tiles in the tile bag and a player uses all of their tiles. 
+
+How to Play:
+Main Menu
+ - enter the number corresponding to the action you want to perform.
+ - when loading game, type the save file name when prompted.
+ 
+Gameplay
+ - type 'place [tile] at [position]' (replacing [tile] with a tile in your hand and [position] with a valid position) in order to 
+   place a tile on the board.
+ - type 'place Done' when you are finished placing tiles. This will end your turn.
+ - type 'replace [tile]' (replacing [tile] with a tile in your hand) in order to replace the tile with another in the tile bag. 
+   This will end your turn.
+ - type 'pass' in order to skip your turn.
+ - type 'save [saveFile]' (replacing [saveFile] with your chosen save file name) in order to save the progress of the game and quit.
+ - type 'quit' in order quit the game.
+
+> quit
+
+Goodbye!
