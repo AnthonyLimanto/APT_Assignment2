@@ -48,11 +48,11 @@ public:
     bool tilePlace(int row, int col, Tile *Tile);
     bool isEmpty();
     void change_turn();
+    void helpFunction(); //for help function
     Player *current_player;
 
 private:
     int num_players;
-
     bool exit;
 
     LinkedList *tile_bag;
