@@ -74,7 +74,7 @@ void GameEngine::change_turn()
     }
     else if (current_player->get_player_name() == players[1]->get_player_name())
     {
-        if (num_players > 2)
+        if (num_players > 2) //if 3-4 player go to 3rd player from 2nd player
         {
             current_player = players[2];
         }
@@ -85,7 +85,7 @@ void GameEngine::change_turn()
     }
     else if (current_player->get_player_name() == players[2]->get_player_name())
     {
-        if (num_players > 3)
+        if (num_players > 3) //if 3-4 player go to 4th player from 3rd player
         {
             current_player = players[3];
         }
@@ -94,7 +94,7 @@ void GameEngine::change_turn()
             current_player = players[0];
         }
     }
-    else if (current_player->get_player_name() == players[3]->get_player_name())
+    else if (current_player->get_player_name() == players[3]->get_player_name()) //if 3-4 player go back to 1st player from 4th player
     {
         current_player = players[0];
     }
