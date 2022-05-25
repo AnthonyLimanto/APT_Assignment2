@@ -8,11 +8,9 @@ Menu
 4. Quit
 5. Help
 
-> 2
-
+> 
 Enter the filename from which to load a game
-> test3Player.save
-Scrabble game successfully loaded
+> Scrabble game successfully loaded
 
 A, it's your turn!
 Score for A: 6
@@ -38,6 +36,6 @@ O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 Your hand is 
 Z-1, G-2, F-4, M-3, O-1, I-1, A-1, T-1, 
 
-> quit
+> 
 
 Goodbye!

@@ -8,17 +8,13 @@ Menu
 4. Quit
 5. Help
 
-> 1
-Starting a New Game
+> Starting a New Game
 Please Enter Player Amount (2-4)
-> 2
-
+> 
 Enter a name for player 1 (uppercase characters only)
- > A
-
+ > 
 Enter a name for player 2 (uppercase characters only)
- > B
-
+ > 
 Let's Play!
 
 A, it's your turn!
@@ -42,10 +38,9 @@ M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 Your hand is 
-A-1, O-1, E-1, F-4, Z-10, I-1, I-1, 
+I-1, E-1, I-1, O-1, E-1, E-1, U-1, 
 
-> help
-HELP
+> HELP
 ----
 Rules:
  1. The first tile must be placed at position H7 (the center).
@@ -73,6 +68,5 @@ Gameplay
  - type 'save [saveFile]' (replacing [saveFile] with your chosen save file name) in order to save the progress of the game and quit.
  - type 'quit' in order quit the game.
 
-> quit
-
+> 
 Goodbye!

@@ -8,23 +8,17 @@ Menu
 4. Quit
 5. Help
 
-> 1
-Starting a New Game
+> Starting a New Game
 Please Enter Player Amount (2-4)
-> 4
-
+> 
 Enter a name for player 1 (uppercase characters only)
- > A
-
+ > 
 Enter a name for player 2 (uppercase characters only)
- > B
-
+ > 
 Enter a name for player 3 (uppercase characters only)
- > C
-
+ > 
 Enter a name for player 4 (uppercase characters only)
- > D
-
+ > 
 Let's Play!
 
 A, it's your turn!
@@ -50,8 +44,7 @@ M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 Your hand is 
-E-1, G-2, T-1, R-1, E-1, A-1, I-1, 
+O-1, I-1, A-1, U-1, L-1, I-1, W-4, 
 
-> quit
-
+> 
 Goodbye!

@@ -8,8 +8,7 @@ Menu
 4. Quit
 5. Help
 
-> 5
-HELP
+> HELP
 ----
 Rules:
  1. The first tile must be placed at position H7 (the center).
@@ -38,6 +37,5 @@ Gameplay
  - type 'quit' in order quit the game.
 
 
-> 4
-
+> 
 Goodbye!
