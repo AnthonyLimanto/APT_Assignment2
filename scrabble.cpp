@@ -321,8 +321,8 @@ bool load_game(std::string filename)
     }
     if (file.size() >= 12) //for loading 3 players
     {
-      file[0].erase(std::remove(file[6].begin(), file[6].end(), '\n'), file[6].end());
-      file[0].erase(std::remove(file[6].begin(), file[6].end(), '\r'), file[6].end());
+      file[6].erase(std::remove(file[6].begin(), file[6].end(), '\n'), file[6].end());
+      file[6].erase(std::remove(file[6].begin(), file[6].end(), '\r'), file[6].end());
       if (upper_case_check(file[6]))
       {
         LinkedList *hand = new LinkedList();
@@ -349,8 +349,8 @@ bool load_game(std::string filename)
     }
         if (file.size() >= 15) //for loading 4 players
     {
-      file[0].erase(std::remove(file[9].begin(), file[9].end(), '\n'), file[9].end());
-      file[0].erase(std::remove(file[9].begin(), file[9].end(), '\r'), file[9].end());
+      file[9].erase(std::remove(file[9].begin(), file[9].end(), '\n'), file[9].end());
+      file[9].erase(std::remove(file[9].begin(), file[9].end(), '\r'), file[9].end());
       if (upper_case_check(file[9]))
       {
         LinkedList *hand = new LinkedList();
@@ -483,8 +483,8 @@ bool load_game(std::string filename)
         game_engine->set_tile_bag(bag);
 
         /* Removes newlines and carriage returns if present */
-        file[8].erase(std::remove(file[11].begin(), file[11].end(), '\n'), file[11].end());
-        file[8].erase(std::remove(file[11].begin(), file[11].end(), '\r'), file[11].end());
+        file[11].erase(std::remove(file[11].begin(), file[11].end(), '\n'), file[11].end());
+        file[11].erase(std::remove(file[11].begin(), file[11].end(), '\r'), file[11].end());
         game_engine->set_curr_player(file[11]);
 
         std::cout << "Scrabble game successfully loaded" << std::endl;
@@ -542,8 +542,8 @@ bool load_game(std::string filename)
         game_engine->set_tile_bag(bag);
 
         /* Removes newlines and carriage returns if present */
-        file[8].erase(std::remove(file[14].begin(), file[14].end(), '\n'), file[14].end());
-        file[8].erase(std::remove(file[14].begin(), file[14].end(), '\r'), file[14].end());
+        file[14].erase(std::remove(file[14].begin(), file[14].end(), '\n'), file[14].end());
+        file[14].erase(std::remove(file[14].begin(), file[14].end(), '\r'), file[14].end());
         game_engine->set_curr_player(file[14]);
 
         std::cout << "Scrabble game successfully loaded" << std::endl;
